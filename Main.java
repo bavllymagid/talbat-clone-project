@@ -34,9 +34,8 @@ class Main{
             panel.add(customerRbutton);
             panel.add(resturantRbutton);
             register.setVisible(false);
+            
         }
     }
-
-
 
 }
