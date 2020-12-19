@@ -1,2 +1,0 @@
-# talbat-clone-project
-//hello
