@@ -1,5 +1,6 @@
 package project.java4.talabat;
 
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +13,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ResturantAdapter extends RecyclerView.Adapter<ResturantAdapter.ResturantViewHolder>  {
+public class ResturantAdapter extends RecyclerView.Adapter<ResturantAdapter.ResturantViewHolder> implements Filterable {
     private ArrayList<Resturant> resturantList ;
+    private ArrayList<Resturant> allResturants;
     private OnResListener onResListener ;
+
+
     public static class ResturantViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView imageView;
         public TextView textView1;
         public TextView textView2;
         public OnResListener onResClick ;
+
     // the item view holder
     public ResturantViewHolder(@NonNull View itemView , OnResListener onResClick) {
         super(itemView);
@@ -35,13 +41,17 @@ public class ResturantAdapter extends RecyclerView.Adapter<ResturantAdapter.Rest
         public void onClick(View v) {
         onResClick.OnResClick(getAdapterPosition());
         }
-}
+    }
+
     public interface OnResListener {
         void OnResClick(int position);
     }
+
     public ResturantAdapter(ArrayList<Resturant> resturantList , OnResListener onResListener){
         this.resturantList = resturantList ;
         this.onResListener = onResListener ;
+        allResturants = new ArrayList<>();
+        allResturants.addAll(resturantList);
     }
 
 
@@ -62,11 +72,45 @@ public class ResturantAdapter extends RecyclerView.Adapter<ResturantAdapter.Rest
         holder.textView2.setText(currentResturant.getNumber());
 
     }
-
+  // to count the number of items
     @Override
     public int getItemCount() {
         return resturantList.size();
     }
 
+ /* search algorithm */ /////////////////////
+    @Override
+    public Filter getFilter() {
+        return new resturantFilter();
+    }
+
+    public class resturantFilter  extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Resturant>filteredPokemon = new ArrayList<>();
+            if(constraint==null || constraint.length()==0){
+                filteredPokemon.addAll(allResturants);
+            }else {
+                String filterpattern =constraint.toString().toLowerCase().trim();
+                for(Resturant item :allResturants){
+                    if(item.getName().toLowerCase().contains(filterpattern)){
+                        filteredPokemon.add(item);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredPokemon;
+            results.count = filteredPokemon.size();
+            return results;
+        }
+        // clear the old list and display the new one
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            resturantList.clear();
+            resturantList.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    }
 
 }
