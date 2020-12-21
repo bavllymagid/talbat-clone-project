@@ -7,4 +7,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- checkbox color -->
+    <style name="colored_checkbox" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- selected -->
+        <item name="colorAccent">#FF5A00</item>
+        <!-- default -->
+        <item name="android:textColorSecondary">@android:color/darker_gray</item>
+    </style>
+
 </resources>

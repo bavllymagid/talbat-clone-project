@@ -2,6 +2,7 @@ package project.java4.talabat.ui.login;
 
 import android.app.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -13,7 +14,9 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.ClickableSpan;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -25,6 +28,7 @@ import android.widget.Toast;
 
 import project.java4.talabat.LoadResturants;
 import project.java4.talabat.R;
+import project.java4.talabat.register;
 import project.java4.talabat.ui.login.LoginViewModel;
 import project.java4.talabat.ui.login.LoginViewModelFactory;
 
@@ -38,6 +42,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
+
+
+
+
 
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
@@ -129,5 +137,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+    }
+    public void registering(View view){
+        Intent intent = new Intent(this,register.class);
+        startActivity(intent);
     }
 }

@@ -4,52 +4,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/talabat"
-        android:layout_width="247dp"
-        android:layout_height="137dp"
-        android:layout_marginStart="82dp"
-        android:layout_marginTop="109dp"
-        android:layout_marginEnd="82dp"
-        android:layout_marginBottom="485dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
         android:fontFamily="sans-serif-black"
         android:text="Talabat"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#FF5A00"
+        android:textSize="64sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25" />
 
     <Button
         android:id="@+id/login"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
-        android:layout_marginTop="290dp"
-        android:layout_marginEnd="162dp"
-        android:layout_marginBottom="393dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/rounded_button"
+        android:onClick="logingin"
         android:text="Log in"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/talabat" />
 
     <Button
         android:id="@+id/register"
-        android:layout_width="275dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="346dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginBottom="346dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/rounded_button"
+        android:onClick="registering"
         android:text="you don't have account"
-        android:textColor="#3F51B5"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/login" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

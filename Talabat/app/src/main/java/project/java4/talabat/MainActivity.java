@@ -14,8 +14,6 @@ import project.java4.talabat.ui.login.LoginActivity;
 public class MainActivity extends AppCompatActivity {
 
     private TextView talabatSlogan ;
-    private Button logIn ;
-    private Button register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,20 +29,13 @@ public class MainActivity extends AppCompatActivity {
         //store reference to the talabat
         talabatSlogan = (TextView) findViewById(R.id.talabat);
 
-        //store reference to login and register buttons
-        logIn = (Button) findViewById(R.id.login);
-        register = (Button) findViewById(R.id.register);
-        //listening to the click of the button
-        logIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickSwitchActivity(v);
-            }
-        });
     }
-
-    public void onClickSwitchActivity(View view) {
-        Intent intent = new Intent(this, LoginActivity.class);
+    public void logingin(View view){
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
+    }
+    public void registering(View view){
+        Intent intent = new Intent(this,register.class);
         startActivity(intent);
     }
 }
