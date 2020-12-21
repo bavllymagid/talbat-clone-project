@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView talabatSlogan ;
     private Button logIn ;
     private Button register;
+    private Button ownerLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         //store reference to login and register buttons
         logIn = (Button) findViewById(R.id.login);
         register = (Button) findViewById(R.id.register);
+        ownerLogin = (Button) findViewById(R.id.ownerLogin);
         //listening to the click of the button
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,10 +43,21 @@ public class MainActivity extends AppCompatActivity {
                 onClickSwitchActivity(v);
             }
         });
+
+        //the button ownerLogin
+        ownerLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,OwnerLoginPage.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void onClickSwitchActivity(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
+
 }
