@@ -82,9 +82,12 @@ public class OwnerLoginPage extends AppCompatActivity {
                 // Check for a valid
                 if (isEmailValid && isPasswordValid && isRestaurantNameValid) {
                     Toast.makeText(getApplicationContext(), "Successfully", Toast.LENGTH_SHORT).show();
-                    //Intent intent = new Intent(this, restaurantName.getText().toString().class);
-                    //startActivity(intent);
+                    if (restaurantName.getText().toString().equals("Mac")){
+                        Intent intent = new Intent(OwnerLoginPage.this, Mac.class);
+                        startActivity(intent);
+                    }
                 }
+
 
             }
         });
