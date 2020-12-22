@@ -16,7 +16,6 @@ import android.view.MenuItem;
 
 import java.util.ArrayList;
 
-import project.java4.talabat.ui.login.LoginActivity;
 
 public class LoadResturants extends AppCompatActivity implements ResturantAdapter.OnResListener , SearchView.OnQueryTextListener {
     // initialization of recycler view

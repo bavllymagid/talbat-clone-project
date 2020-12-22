@@ -38,10 +38,12 @@
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textname"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="monospace"
-            android:textSize="16sp"></com.google.android.material.textfield.TextInputEditText>
+            android:textSize="16sp"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -59,11 +61,13 @@
         app:layout_constraintTop_toBottomOf="@+id/name">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textemail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="monospace"
             android:inputType="textEmailAddress"
-            android:textSize="16sp"></com.google.android.material.textfield.TextInputEditText>
+            android:textSize="16sp"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -82,12 +86,13 @@
         app:passwordToggleTint="#FF5A00">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textpassword"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="monospace"
             android:textSize="16sp"
             android:inputType="textPassword"
-            ></com.google.android.material.textfield.TextInputEditText>
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -106,11 +111,13 @@
         app:layout_constraintTop_toBottomOf="@+id/Password">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textphone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="monospace"
             android:inputType="phone"
-            android:textSize="16sp"></com.google.android.material.textfield.TextInputEditText>
+            android:textSize="16sp"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -130,15 +137,17 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextPhone">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textadress"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="monospace"
-            android:textSize="16sp"></com.google.android.material.textfield.TextInputEditText>
+            android:textSize="16sp"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/registerButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"

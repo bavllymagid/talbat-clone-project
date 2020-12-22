@@ -33,7 +33,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/rounded_button"
-        android:onClick="logingin"
+        android:onClick="loggingIn"
         android:text="Log in"
         android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,20 +41,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/talabat" />
 
-    <Button
-        android:id="@+id/register"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/rounded_button"
-        android:onClick="registering"
-        android:text="you don't have account"
-        android:textColor="#fff"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login" />
+   
 
 </androidx.constraintlayout.widget.ConstraintLayout>

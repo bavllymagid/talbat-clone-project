@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Talabat</string>
     <string name="Button_name">log in</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_login">Login</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Log in</string>
