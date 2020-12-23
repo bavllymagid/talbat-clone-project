@@ -19,6 +19,7 @@ public class OwnerLoginPage extends AppCompatActivity {
     Button btnLogin;
     boolean isEmailValid, isPasswordValid,isRestaurantNameValid;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +85,7 @@ public class OwnerLoginPage extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Successfully", Toast.LENGTH_SHORT).show();
                     if (restaurantName.getText().toString().equals("Mac")){
                         Intent intent = new Intent(OwnerLoginPage.this, Mac.class);
+                        intent.putExtra("Empty","Empty");
                         startActivity(intent);
                     }
                 }
