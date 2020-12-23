@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import project.java4.talabat.ui.login.LoginActivity;
 
 public class OwnerLoginPage extends AppCompatActivity {
 
