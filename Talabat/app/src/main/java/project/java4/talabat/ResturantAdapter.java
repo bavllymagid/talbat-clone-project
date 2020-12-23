@@ -1,6 +1,5 @@
 package project.java4.talabat;
 
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import java.util.List;
 
 public class ResturantAdapter extends RecyclerView.Adapter<ResturantAdapter.ResturantViewHolder> implements Filterable {
     private ArrayList<Resturant> resturantList ;
-    private ArrayList<Resturant> allResturants;
+    private ArrayList<Resturant> allResturants ;
     private OnResListener onResListener ;
 
 
