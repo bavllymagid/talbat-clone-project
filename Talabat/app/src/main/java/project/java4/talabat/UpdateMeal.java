@@ -1,5 +1,6 @@
 package project.java4.talabat;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,46 +8,63 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 
-public class AddMeal extends AppCompatActivity {
+public class UpdateMeal extends AppCompatActivity {
+
+    DbContact db;
 
     EditText editMealName, editMealPrice,editMealDescription;
-    Button btnConfirm;
+    Button btnUpdate;
     ImageButton pickImag;
 
     byte[] image = null;
-    DbContact db;
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_meal_data);
+        setContentView(R.layout.activity_update_meal_data);
+
+        id = getIntent().getIntExtra("id", 0);
 
         db = new DbContact(this);
+
+        Meal meal = db.getContactById2(id);
 
 
         editMealName = (EditText) findViewById(R.id.editMealName);
         editMealDescription = (EditText) findViewById(R.id.editMealDescription);
         editMealPrice = (EditText) findViewById(R.id.editMealPrice);
-        btnConfirm = (Button) findViewById(R.id.btnConfirm);
         pickImag = (ImageButton) findViewById(R.id.pickImg);
 
+        btnUpdate = (Button) findViewById(R.id.btnUpdate);
 
-        btnConfirm.setOnClickListener(new View.OnClickListener() {
+        editMealName.setText(meal.getMealName());
+        editMealDescription.setText(meal.getMealDescription());
+        editMealPrice.setText(meal.getMealPrice() + "");
+
+        Bitmap bitmap = BitmapFactory.decodeByteArray(meal.getImage(), 0, meal.getImage().length);
+        pickImag.setImageBitmap(bitmap);
+        image = getBytes(bitmap);
+
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 String MealName = editMealName.getText().toString();
                 String MealDescription = editMealDescription.getText().toString();
@@ -63,17 +81,64 @@ public class AddMeal extends AppCompatActivity {
                 image = getBytes(bitmap);
 
 
-                Meal meal = new Meal(MealName,MealDescription, MealPrice, image);
+                Meal newMeal = new Meal(id, MealName,MealDescription, MealPrice, image);
 
-                db.addContact(meal);
+                db.updateContact(newMeal);
 
-                Toast.makeText(AddMeal.this, "Data is Added", Toast.LENGTH_LONG).show();
+                Toast.makeText(UpdateMeal.this, "Successfully updated", Toast.LENGTH_LONG).show();
                 finish();
+
             }
         });
 
+
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.delete_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.item_delet:
+
+                showAlert();
+
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    private void showAlert() {
+
+        AlertDialog.Builder alertBilder = new AlertDialog.Builder(this);
+        alertBilder.setTitle("Are you sure you want delete?")
+                .setMessage("Are you sure?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // delete contact
+                        db.deletContact(id);
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog dialog = alertBilder.create();
+        dialog.show();
+    }
 
     public void openGalleries(View view) {
 
@@ -110,6 +175,5 @@ public class AddMeal extends AppCompatActivity {
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
         return stream.toByteArray();
     }
-
 
 }

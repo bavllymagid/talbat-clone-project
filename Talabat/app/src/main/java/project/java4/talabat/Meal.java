@@ -1,48 +1,74 @@
 package project.java4.talabat;
+
+
 public class Meal {
 
-    private int imageResource ;
-    private String price ;
-    private String name ;
-    private String description ;
-    private String Number;
-    Meal(int imageResource,String name, String price, String description,String Number){
-        this.imageResource=imageResource;
-        this.name = name ;
-        this.price=price ;
-        this.description= description ;
-        this.Number=Number;
-    }
-    public int getImageResource() {
-        return imageResource;
+    private int id;
+    private String mealName;
+    private String mealDescription;
+    private int mealPrice;
+    private byte[] image;
+
+
+    public Meal(int id, String mealName, String mealDescription, int mealPrice, byte[] image) {
+        this.id = id;
+        this.mealName = mealName;
+        this.mealDescription = mealDescription;
+        this.mealPrice = mealPrice;
+        this.image = image;
     }
 
-    public String getPrice() {
-        return price;
+
+    public Meal(String mealName, String mealDescription, int mealPrice, byte[] image) {
+        this.mealName = mealName;
+        this.mealDescription = mealDescription;
+        this.mealPrice = mealPrice;
+        this.image = image;
+
+
     }
 
-    public String getName() {
-        return name;
+
+    public int getId() {
+        return id;
     }
 
-    public String getDescription() {
-        return description;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setImageResource(int imageResource) {
-        this.imageResource = imageResource;
+
+    public String getMealName() {
+        return mealName;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public String getMealDescription() {
+        return mealDescription;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMealName(String mealName) {
+        this.mealName = mealName;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setMealDescription(String mealDescription) {
+        this.mealDescription = mealDescription;
     }
+
+    public int getMealPrice() {
+        return mealPrice;
+    }
+
+    public void setMealPrice(int mealPrice) {
+        this.mealPrice = mealPrice;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+
 }
-
