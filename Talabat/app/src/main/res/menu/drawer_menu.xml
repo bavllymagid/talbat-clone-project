@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_View">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/home_nav"
+            android:icon="@drawable/outline_home_24"
+            android:title="Home"
+            />
+        <item
+            android:id="@+id/your_orders_nav"
+            android:icon="@drawable/outline_list_alt_24"
+            android:title="Your orders" />
+        <item
+            android:id="@+id/Offers_nav"
+            android:icon="@drawable/outline_local_offer_24"
+            android:title="Offers" />
+        <item
+            android:id="@+id/notifications_nav"
+            android:icon="@drawable/outline_notifications_24"
+            android:title="Notification" />
+        <item
+            android:id="@+id/talabat_pay_nav"
+            android:icon="@drawable/outline_credit_card_24"
+            android:title="talabat Pay" />
+
+        <item
+            android:id="@+id/vouchers_nav"
+            android:icon="@drawable/outline_receipt_long_24"
+            android:title="Vouchers" />
+
+        <item
+            android:id="@+id/get_help_nav"
+            android:icon="@drawable/outline_sports_24"
+            android:title="Get Help" />
+
+        <item
+            android:id="@+id/about_nav"
+            android:icon="@drawable/outline_info_24"
+            android:title="About" />
+
+    </group>
+
+
+</menu>

@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
-    tools:context=".MainActivity">
+    tools:context=".register">
 
     <TextView
         android:id="@+id/talabat"
@@ -26,20 +25,36 @@
         app:layout_constraintVertical_bias="0.25" />
 
     <Button
-        android:id="@+id/login"
+        android:id="@+id/customer_register"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/rounded_button"
-        android:onClick="loggingIn"
-        android:text="Log in"
+        android:text="Customer"
         android:textColor="#fff"
+        android:onClick="toRegister_customer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/talabat" />
+
+    <Button
+        android:id="@+id/restaurantOwner_register"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/rounded_button"
+        android:text="Restaurant"
+        android:textColor="#fff"
+        android:onClick="toRegister_restaurant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customer_register" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

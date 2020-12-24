@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
@@ -41,8 +40,10 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    public void registering(View view) {
-        Intent intent = new Intent(Login.this, register.class);
+    //register_customer text function
+    public void registering(View view){
+        Intent intent = new Intent(this, register.class);
         startActivity(intent);
     }
+
 }

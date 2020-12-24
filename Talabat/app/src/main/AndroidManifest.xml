@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OwnerPage"></activity>
+        <activity android:name=".register" android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name=".register_restaurantOwner"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".OwnerPage" />
         <activity android:name=".AddMeal" />
         <activity android:name=".UpdateMeal" />
         <activity
@@ -17,9 +21,9 @@
             android:label="@string/title_login"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".register"
+            android:name=".register_customer"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".LoadResturants" />
+        <activity android:name=".LoadResturants" android:theme="@style/Theme.Design.Light.NoActionBar"/>
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">

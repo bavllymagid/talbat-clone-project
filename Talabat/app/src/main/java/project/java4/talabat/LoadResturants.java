@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,16 +19,16 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 
 
-public class LoadResturants extends AppCompatActivity implements ResturantAdapter.OnResListener , SearchView.OnQueryTextListener {
+public class LoadResturants extends AppCompatActivity implements ResturantAdapter.OnResListener, SearchView.OnQueryTextListener {
     // initialization of recycler view
-    private RecyclerView recyclerView ;
-    private ResturantAdapter adapter ;
-    private RecyclerView.LayoutManager layoutManager ;
+    private RecyclerView recyclerView;
+    private ResturantAdapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Resturant> resturantlist = new ArrayList<>();
-
+    private Toolbar toolbar;
     //initialization of drawer side bar
-    private DrawerLayout mDrawerLayout ;
-    private ActionBarDrawerToggle drawerToggle ;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +38,12 @@ public class LoadResturants extends AppCompatActivity implements ResturantAdapte
     }
 
 
-
     private void initializeUI() {
         //initialization of drawer
         mDrawerLayout = findViewById(R.id.drawer_layout);
-        drawerToggle = new ActionBarDrawerToggle(this , mDrawerLayout, R.string.open , R.string.close);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,toolbar ,R.string.open, R.string.close);
 
         mDrawerLayout.addDrawerListener(drawerToggle);
         //to save the state of drawer
@@ -49,47 +52,54 @@ public class LoadResturants extends AppCompatActivity implements ResturantAdapte
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-
-
         //intializing of the list of resturants
-        resturantlist.add(new Resturant(R.drawable.ic_android , "mac" , "1"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline , "kfc" , "2"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible , "zacks" , "3"));
-        resturantlist.add(new Resturant(R.drawable.ic_android , "mac" , "1"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline , "kfc" , "2"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible , "zacks" , "3"));
-        resturantlist.add(new Resturant(R.drawable.ic_android , "mac" , "1"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline , "kfc" , "2"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible , "zacks" , "3"));
-        resturantlist.add(new Resturant(R.drawable.ic_android , "mac" , "1"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline , "kfc" , "2"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible , "zacks" , "3"));
-        resturantlist.add(new Resturant(R.drawable.ic_android , "mac" , "1"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline , "kfc" , "2"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible , "zacks" , "3"));
-        resturantlist.add(new Resturant(R.drawable.ic_android , "mac" , "1"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline , "kfc" , "2"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible , "zacks" , "3"));
-        resturantlist.add(new Resturant(R.drawable.ic_android , "mac" , "1"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline , "kfc" , "2"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible , "zacks" , "3"));
-        resturantlist.add(new Resturant(R.drawable.ic_android , "mac" , "1"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline , "kfc" , "2"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible , "zacks" , "3"));
-        resturantlist.add(new Resturant(R.drawable.ic_android , "mac" , "1"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline , "kfc" , "2"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible , "zacks" , "3"));
+        resturantlist.add(new Resturant(R.drawable.ic_android, "mac", "1"));
+        resturantlist.add(new Resturant(R.drawable.ic_baseline, "kfc", "2"));
+        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible, "zacks", "3"));
+        resturantlist.add(new Resturant(R.drawable.ic_android, "mac", "1"));
+        resturantlist.add(new Resturant(R.drawable.ic_baseline, "kfc", "2"));
+        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible, "zacks", "3"));
+        resturantlist.add(new Resturant(R.drawable.ic_android, "mac", "1"));
+        resturantlist.add(new Resturant(R.drawable.ic_baseline, "kfc", "2"));
+        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible, "zacks", "3"));
+        resturantlist.add(new Resturant(R.drawable.ic_android, "mac", "1"));
+        resturantlist.add(new Resturant(R.drawable.ic_baseline, "kfc", "2"));
+        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible, "zacks", "3"));
+        resturantlist.add(new Resturant(R.drawable.ic_android, "mac", "1"));
+        resturantlist.add(new Resturant(R.drawable.ic_baseline, "kfc", "2"));
+        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible, "zacks", "3"));
+        resturantlist.add(new Resturant(R.drawable.ic_android, "mac", "1"));
+        resturantlist.add(new Resturant(R.drawable.ic_baseline, "kfc", "2"));
+        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible, "zacks", "3"));
+        resturantlist.add(new Resturant(R.drawable.ic_android, "mac", "1"));
+        resturantlist.add(new Resturant(R.drawable.ic_baseline, "kfc", "2"));
+        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible, "zacks", "3"));
+        resturantlist.add(new Resturant(R.drawable.ic_android, "mac", "1"));
+        resturantlist.add(new Resturant(R.drawable.ic_baseline, "kfc", "2"));
+        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible, "zacks", "3"));
+        resturantlist.add(new Resturant(R.drawable.ic_android, "mac", "1"));
+        resturantlist.add(new Resturant(R.drawable.ic_baseline, "kfc", "2"));
+        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible, "zacks", "3"));
 
 
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
-        adapter = new ResturantAdapter(resturantlist , this);
+        adapter = new ResturantAdapter(resturantlist, this);
         layoutManager = new LinearLayoutManager(this);
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(mDrawerLayout.isDrawerOpen(GravityCompat.START)){
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else
+            super.onBackPressed();
     }
 
     // To navigate to the menu of the resturant
@@ -102,8 +112,8 @@ public class LoadResturants extends AppCompatActivity implements ResturantAdapte
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if(drawerToggle.onOptionsItemSelected(item)){
-            return true ;
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
