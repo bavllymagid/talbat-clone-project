@@ -18,7 +18,7 @@ public class PersonDb extends SQLiteOpenHelper {
     //initializing the table
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table emails(name text not null,"+"email varchar(250) primary key ,"+"password text not null," + "phone text ,"+" address text ,"+" res_name text unique," +
+        db.execSQL("create table emails(name text not null,"+"email varchar(250) primary key ,"+"password text not null," + "phone varchar(250) ,"+" address var(250) ,"+" res_name text unique," +
                 ""+" key_d text not null )");
     }
 

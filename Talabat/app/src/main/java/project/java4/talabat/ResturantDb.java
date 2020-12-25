@@ -53,10 +53,10 @@ public class ResturantDb extends SQLiteOpenHelper {
                 + KEY_MealName + " varchar(255) DEFAULT'',"
                 + KEY_MealDescription + " varchar(255) DEFAULT'',"
                 + KEY_MealPrice + " integer ,"
-                + KEY_IMG + " blob)";
+                + KEY_IMG + " blob,"+Res_name +" varchar(250))";
 
         //intializing the orders
-        String orders = "create table " + ordersTable + "(" + Oorder_id +" text primary key,"
+        String orders = "create table " + ordersTable + "(" + Oorder_id +" varchar(255) primary key,"
                 +Resturant_name+" varchar(255),"+orderMealName+" varchar(255))";
 
         db.execSQL(Resturant_table);
@@ -131,14 +131,12 @@ public class ResturantDb extends SQLiteOpenHelper {
     public ArrayList<Meal> getAllMeals(String resturantName) {
         ArrayList<Meal> meals = new ArrayList<>();
 
-        String select_query = "select * from " + TABLE_Meal_Data+" INNER JOIN "+TABLE_Resturant_Data +
-                " on MealsData.Res_name = Resturant.ResturantName";
+        String select_query = "select * from " + TABLE_Meal_Data;
 
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(select_query, null);
 
         if (cursor.moveToFirst()) {
-
             do {
                 if(resturantName.equals(cursor.getString(cursor.getColumnIndex(Res_name)))) {
                     int id = cursor.getInt(cursor.getColumnIndex(KEY_ID));
