@@ -15,14 +15,14 @@ public class OwnerPage extends AppCompatActivity {
 
     ListView contactList;
     Button btnAdd;
-    DbContact db;
+    ResturantDb db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_page);
 
-        db = new DbContact(this);
+        db = new ResturantDb(this);
 
         contactList = (ListView) findViewById(R.id.contactList);
         btnAdd = (Button) findViewById(R.id.btnAdd);
@@ -32,6 +32,8 @@ public class OwnerPage extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(OwnerPage.this, AddMeal.class);
+                String ownerResturant = getIntent().getStringExtra("returantName");
+                intent.putExtra("resName" , ownerResturant);
                 startActivity(intent);
 
             }
@@ -59,7 +61,15 @@ public class OwnerPage extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        ArrayList<Meal> meals = db.getAllContacts();
+        ArrayList<Meal> meals ;
+        // to get the name of the resturant from owner page and login page to the list
+        String resturant_name = getIntent().getStringExtra("res_name");
+        String ownerResturant = getIntent().getStringExtra("returantName");
+        if(ownerResturant != null){
+            meals = db.getAllMeals(ownerResturant);
+        }else{
+            meals = db.getAllMeals(resturant_name);
+        }
 
         MealAdapter mealAdapter = new MealAdapter(this, R.layout.meal_data, meals);
 

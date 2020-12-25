@@ -25,7 +25,7 @@ import java.io.InputStream;
 
 public class UpdateMeal extends AppCompatActivity {
 
-    DbContact db;
+    ResturantDb db;
 
     EditText editMealName, editMealPrice,editMealDescription;
     Button btnUpdate;
@@ -41,9 +41,9 @@ public class UpdateMeal extends AppCompatActivity {
 
         id = getIntent().getIntExtra("id", 0);
 
-        db = new DbContact(this);
+        db = new ResturantDb(this);
 
-        Meal meal = db.getContactById2(id);
+        Meal meal = db.getMealById2(id);
 
 
         editMealName = (EditText) findViewById(R.id.editMealName);
@@ -83,7 +83,7 @@ public class UpdateMeal extends AppCompatActivity {
 
                 Meal newMeal = new Meal(id, MealName,MealDescription, MealPrice, image);
 
-                db.updateContact(newMeal);
+                db.updateMeal(newMeal);
 
                 Toast.makeText(UpdateMeal.this, "Successfully updated", Toast.LENGTH_LONG).show();
                 finish();
@@ -126,7 +126,7 @@ public class UpdateMeal extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // delete contact
-                        db.deletContact(id);
+                        db.deletMeal(id);
                         finish();
                     }
                 })

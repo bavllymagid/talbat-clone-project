@@ -11,25 +11,33 @@ import android.widget.Toast;
 
 
 public class Login extends AppCompatActivity {
-
+     EditText usernameEditText;
+     EditText passwordEditText ;
+     Button loginButton;
+     PersonDb ePersonDb ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+         usernameEditText = findViewById(R.id.username);
+         passwordEditText = findViewById(R.id.password);
+       loginButton = findViewById(R.id.login);
+        ePersonDb = new PersonDb(this);
 
-        final EditText usernameEditText = findViewById(R.id.username);
-        final EditText passwordEditText = findViewById(R.id.password);
-        final Button loginButton = findViewById(R.id.login);
-        final DataBase eDataBase = new DataBase(this);
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //searching for the validity of the email
-                if(eDataBase.searchEmail(usernameEditText.getText().toString()) && eDataBase.searchPassword(passwordEditText.getText().toString())){
-                    Intent intent = new Intent(Login.this, LoadResturants.class);
-                    startActivity(intent);
+                if(ePersonDb.searchEmail(usernameEditText.getText().toString()) && ePersonDb.searchPassword(passwordEditText.getText().toString())){
+                    // to send the owner to owner page
+                    if(!ePersonDb.searchState(usernameEditText.getText().toString())){
+                        sendResturant(v);
+                    }else {
+                        Intent intent = new Intent(Login.this, LoadResturants.class);
+                        startActivity(intent);
+                    }
                 }else if(passwordEditText.getText().toString() == null ||
                         !usernameEditText.getText().toString().contains("@"))  {
                     Toast.makeText(getApplicationContext() , "Invalid input" , Toast.LENGTH_SHORT).show();
@@ -43,6 +51,14 @@ public class Login extends AppCompatActivity {
     //register_customer text function
     public void registering(View view){
         Intent intent = new Intent(this, register.class);
+        startActivity(intent);
+    }
+
+    // to send the owner to his resturant
+    public void sendResturant(View view){
+        Intent intent = new Intent(this, OwnerPage.class);
+        intent.putExtra("returantName", ePersonDb.getResturantName(usernameEditText.getText().toString()));
+        Toast.makeText(getApplicationContext() ,ePersonDb.getResturantName(usernameEditText.getText().toString()),Toast.LENGTH_SHORT).show();
         startActivity(intent);
     }
 

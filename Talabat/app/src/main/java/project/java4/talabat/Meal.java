@@ -8,6 +8,7 @@ public class Meal {
     private String mealDescription;
     private int mealPrice;
     private byte[] image;
+    private String restaurantName;
 
 
     public Meal(int id, String mealName, String mealDescription, int mealPrice, byte[] image) {
@@ -19,15 +20,17 @@ public class Meal {
     }
 
 
-    public Meal(String mealName, String mealDescription, int mealPrice, byte[] image) {
+    public Meal(String mealName, String mealDescription, int mealPrice, byte[] image, String restaurantName) {
         this.mealName = mealName;
         this.mealDescription = mealDescription;
         this.mealPrice = mealPrice;
         this.image = image;
-
-
+        this.restaurantName = restaurantName;
     }
 
+    public String getRestaurantName() {
+        return restaurantName;
+    }
 
     public int getId() {
         return id;

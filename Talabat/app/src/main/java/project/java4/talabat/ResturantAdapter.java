@@ -1,5 +1,7 @@
 package project.java4.talabat;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,9 +68,9 @@ public class ResturantAdapter extends RecyclerView.Adapter<ResturantAdapter.Rest
     public void onBindViewHolder(@NonNull ResturantViewHolder holder, int position) {
         Resturant currentResturant = resturantList.get(position);
 
-        holder.imageView.setImageResource(currentResturant.getImageResource());
+        Bitmap bitmap = BitmapFactory.decodeByteArray(currentResturant.getImageResource(), 0, currentResturant.getImageResource().length);
+        holder.imageView.setImageBitmap(bitmap);
         holder.textView1.setText(currentResturant.getName());
-        holder.textView2.setText(currentResturant.getNumber());
 
     }
   // to count the number of items

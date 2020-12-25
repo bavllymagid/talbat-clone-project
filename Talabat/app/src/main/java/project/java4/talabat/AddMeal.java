@@ -26,15 +26,14 @@ public class AddMeal extends AppCompatActivity {
     ImageButton pickImag;
 
     byte[] image = null;
-    DbContact db;
+    ResturantDb db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meal_data);
 
-        db = new DbContact(this);
-
+        db = new ResturantDb(this);
 
         editMealName = (EditText) findViewById(R.id.editMealName);
         editMealDescription = (EditText) findViewById(R.id.editMealDescription);
@@ -47,7 +46,7 @@ public class AddMeal extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
+                String restaurantName = getIntent().getStringExtra("resName");
                 String MealName = editMealName.getText().toString();
                 String MealDescription = editMealDescription.getText().toString();
 
@@ -63,9 +62,9 @@ public class AddMeal extends AppCompatActivity {
                 image = getBytes(bitmap);
 
 
-                Meal meal = new Meal(MealName,MealDescription, MealPrice, image);
+                Meal meal = new Meal(MealName,MealDescription, MealPrice, image,restaurantName);
 
-                db.addContact(meal);
+                db.addMeal(meal);
 
                 Toast.makeText(AddMeal.this, "Data is Added", Toast.LENGTH_LONG).show();
                 finish();

@@ -2,6 +2,7 @@ package project.java4.talabat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -13,7 +14,7 @@ public class register_customer extends AppCompatActivity {
 
     EditText name , email , password , phone ,address;
     Button registerButton ;
-    DataBase dataBase = new DataBase(this);
+    PersonDb personDb = new PersonDb(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +33,13 @@ public class register_customer extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(isUserNameValid(email.getText().toString()) && isPasswordValid(password.getText().toString())){
-                    if(!dataBase.searchEmail(email.getText().toString())){
-                        if(dataBase.createNewEmail(name.getText().toString(), email.getText().toString(), password.getText().toString()
-                                , phone.getText().toString(), address.getText().toString()))
-                        Toast.makeText(getApplicationContext() , "registration succeeded " , Toast.LENGTH_SHORT).show();
+                    if(!personDb.searchEmail(email.getText().toString())){
+                        if(personDb.createNewEmail(name.getText().toString(), email.getText().toString(), password.getText().toString()
+                                , phone.getText().toString(), address.getText().toString(),null,"0")) {
+                            Intent intent = new Intent(register_customer.this , Login.class);
+                            startActivity(intent);
+                            Toast.makeText(getApplicationContext(), "registration succeeded ", Toast.LENGTH_SHORT).show();
+                        }
                     }else Toast.makeText(getApplicationContext(), "The Email is already found" ,Toast.LENGTH_SHORT).show();
                 }
             }

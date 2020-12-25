@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -29,6 +30,8 @@ public class LoadResturants extends AppCompatActivity implements ResturantAdapte
     //initialization of drawer side bar
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle drawerToggle;
+    private ResturantDb dbase = new ResturantDb(this);
+    PersonDb personDb = new PersonDb(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,47 +55,26 @@ public class LoadResturants extends AppCompatActivity implements ResturantAdapte
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        //intializing of the list of resturants
-        resturantlist.add(new Resturant(R.drawable.ic_android, "mac", "1"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline, "kfc", "2"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible, "zacks", "3"));
-        resturantlist.add(new Resturant(R.drawable.ic_android, "mac", "1"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline, "kfc", "2"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible, "zacks", "3"));
-        resturantlist.add(new Resturant(R.drawable.ic_android, "mac", "1"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline, "kfc", "2"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible, "zacks", "3"));
-        resturantlist.add(new Resturant(R.drawable.ic_android, "mac", "1"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline, "kfc", "2"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible, "zacks", "3"));
-        resturantlist.add(new Resturant(R.drawable.ic_android, "mac", "1"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline, "kfc", "2"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible, "zacks", "3"));
-        resturantlist.add(new Resturant(R.drawable.ic_android, "mac", "1"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline, "kfc", "2"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible, "zacks", "3"));
-        resturantlist.add(new Resturant(R.drawable.ic_android, "mac", "1"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline, "kfc", "2"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible, "zacks", "3"));
-        resturantlist.add(new Resturant(R.drawable.ic_android, "mac", "1"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline, "kfc", "2"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible, "zacks", "3"));
-        resturantlist.add(new Resturant(R.drawable.ic_android, "mac", "1"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline, "kfc", "2"));
-        resturantlist.add(new Resturant(R.drawable.ic_baseline_accessible, "zacks", "3"));
 
 
-        recyclerView = findViewById(R.id.recyclerview);
-        recyclerView.setHasFixedSize(true);
-        adapter = new ResturantAdapter(resturantlist, this);
+
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         layoutManager = new LinearLayoutManager(this);
+    }
+    /// displaying the list view
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        resturantlist = dbase.getAllResturants();
+
+        adapter = new ResturantAdapter(resturantlist, this);
 
         recyclerView.setLayoutManager(layoutManager);
+
         recyclerView.setAdapter(adapter);
 
-
     }
-
     @Override
     public void onBackPressed() {
         if(mDrawerLayout.isDrawerOpen(GravityCompat.START)){
@@ -105,7 +87,12 @@ public class LoadResturants extends AppCompatActivity implements ResturantAdapte
     // To navigate to the menu of the resturant
     @Override
     public void OnResClick(int position) {
-
+        if(personDb.searchResturant(resturantlist.get(position).getName())){
+            Intent intent = new Intent(this , OwnerPage.class);
+            intent.putExtra("res_name" , resturantlist.get(position).getName());
+            Toast.makeText(getApplicationContext(), resturantlist.get(position).getName(), Toast.LENGTH_SHORT).show();
+            startActivity(intent);
+        }
     }
 
     //to detect the click on the button of sidebar
