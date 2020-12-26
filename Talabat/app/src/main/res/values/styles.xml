@@ -1,10 +1,10 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">#ff5a00</item>
+        <item name="colorPrimaryDark">#000</item>
+        <item name="colorAccent">#ff5a00</item>
     </style>
 
     <!-- checkbox color -->
@@ -12,7 +12,12 @@
         <!-- selected -->
         <item name="colorAccent">#FF5A00</item>
         <!-- default -->
-        <item name="android:textColorSecondary">@android:color/darker_gray</item>
+        <item name="android:textColorSecondary">#aaa</item>
+    </style>
+
+    <!-- for search view -->
+    <style name="searchView_restaurant" parent="Widget.AppCompat.SearchView">
+        <item name="android:textSize">14sp</item>
     </style>
 
 </resources>

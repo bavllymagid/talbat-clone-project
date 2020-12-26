@@ -33,7 +33,7 @@ public class MealAdapter extends ArrayAdapter<Meal> {
 
         convertView = LayoutInflater.from(context).inflate(resource, parent, false  );
 
-        TextView mealName = (TextView)convertView.findViewById(R.id.mealName);
+        TextView mealName = (TextView)convertView.findViewById(R.id.orderData);
         TextView mealDescription = (TextView)convertView.findViewById(R.id.mealDescription);
         TextView mealPrice = (TextView)convertView.findViewById(R.id.mealPrice);
         ImageView imgUser = (ImageView) convertView.findViewById(R.id.imgUser);

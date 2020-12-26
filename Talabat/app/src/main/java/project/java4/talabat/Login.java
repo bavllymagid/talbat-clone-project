@@ -11,54 +11,55 @@ import android.widget.Toast;
 
 
 public class Login extends AppCompatActivity {
-     EditText usernameEditText;
-     EditText passwordEditText ;
-     Button loginButton;
-     PersonDb ePersonDb ;
+    EditText usernameEditText;
+    EditText passwordEditText;
+    Button loginButton;
+    PersonDb ePersonDb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-         usernameEditText = findViewById(R.id.username);
-         passwordEditText = findViewById(R.id.password);
-       loginButton = findViewById(R.id.login);
+        usernameEditText = findViewById(R.id.username);
+        passwordEditText = findViewById(R.id.password);
+        loginButton = findViewById(R.id.login);
         ePersonDb = new PersonDb(this);
-
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //searching for the validity of the email
-                if(ePersonDb.searchEmail(usernameEditText.getText().toString()) && ePersonDb.searchPassword(passwordEditText.getText().toString())){
+                if (ePersonDb.searchEmail(usernameEditText.getText().toString()) && ePersonDb.searchPassword(passwordEditText.getText().toString())) {
                     // to send the owner to owner page
-                    if(!ePersonDb.searchState(usernameEditText.getText().toString())){
+                    if (!ePersonDb.searchState(usernameEditText.getText().toString())) {
                         sendResturant(v);
-                    }else {
+                    } else {
                         Intent intent = new Intent(Login.this, LoadResturants.class);
                         startActivity(intent);
                     }
-                }else if(passwordEditText.getText().toString() == null ||
-                        !usernameEditText.getText().toString().contains("@"))  {
-                    Toast.makeText(getApplicationContext() , "Invalid input" , Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getApplicationContext() , "The email or the password is incorrect", Toast.LENGTH_SHORT).show();
+                } else if (passwordEditText.getText().toString() == null ||
+                        !usernameEditText.getText().toString().contains("@")) {
+                    Toast.makeText(getApplicationContext(), "Invalid input", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "The email or the password is incorrect", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
     //register_customer text function
-    public void registering(View view){
+    public void registering(View view) {
         Intent intent = new Intent(this, register.class);
         startActivity(intent);
     }
 
     // to send the owner to his resturant
-    public void sendResturant(View view){
+    public void sendResturant(View view) {
         Intent intent = new Intent(this, OwnerPage.class);
         intent.putExtra("returantName", ePersonDb.getResturantName(usernameEditText.getText().toString()));
-        Toast.makeText(getApplicationContext() ,ePersonDb.getResturantName(usernameEditText.getText().toString()),Toast.LENGTH_SHORT).show();
+        intent.putExtra("customer", "1");
+        Toast.makeText(getApplicationContext(), ePersonDb.getResturantName(usernameEditText.getText().toString()), Toast.LENGTH_SHORT).show();
         startActivity(intent);
     }
 

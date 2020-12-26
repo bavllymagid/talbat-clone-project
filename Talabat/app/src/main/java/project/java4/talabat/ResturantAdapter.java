@@ -33,7 +33,6 @@ public class ResturantAdapter extends RecyclerView.Adapter<ResturantAdapter.Rest
         super(itemView);
         imageView = itemView.findViewById(R.id.imageView);
         textView1 = itemView.findViewById(R.id.textview);
-        textView2 = itemView.findViewById(R.id.textview2);
         this.onResClick = onResClick ;
         itemView.setOnClickListener(this);
     }
@@ -59,7 +58,7 @@ public class ResturantAdapter extends RecyclerView.Adapter<ResturantAdapter.Rest
     @NonNull
     @Override
     public ResturantViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.example , parent , false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurant_data, parent , false);
         ResturantViewHolder rvh = new ResturantViewHolder(v, onResListener);
         return rvh;
     }

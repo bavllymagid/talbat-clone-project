@@ -10,26 +10,28 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
+
 import java.util.ArrayList;
 
 
-public class LoadResturants extends AppCompatActivity implements ResturantAdapter.OnResListener, SearchView.OnQueryTextListener {
+public class LoadResturants extends AppCompatActivity implements ResturantAdapter.OnResListener, SearchView.OnQueryTextListener, NavigationView.OnNavigationItemSelectedListener {
     // initialization of recycler view
     private RecyclerView recyclerView;
     private ResturantAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Resturant> resturantlist = new ArrayList<>();
-    private Toolbar toolbar;
     //initialization of drawer side bar
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle drawerToggle;
+    private DrawerLayout drawer;
+    private ActionBarDrawerToggle toggle;
+    NavigationView nav_view;
+    private Toolbar toolbar;
     private ResturantDb dbase = new ResturantDb(this);
     PersonDb personDb = new PersonDb(this);
 
@@ -43,24 +45,23 @@ public class LoadResturants extends AppCompatActivity implements ResturantAdapte
 
     private void initializeUI() {
         //initialization of drawer
-        mDrawerLayout = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
+        nav_view = findViewById(R.id.nav_view);
+        nav_view.setNavigationItemSelectedListener(this);
+        nav_view.setCheckedItem(R.id.home_nav);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,toolbar ,R.string.open, R.string.close);
+        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
 
-        mDrawerLayout.addDrawerListener(drawerToggle);
+        drawer.addDrawerListener(toggle);
         //to save the state of drawer
-        drawerToggle.syncState();
-        //the bar that we use for opening the drawer
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-
+        toggle.syncState();
 
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         layoutManager = new LinearLayoutManager(this);
     }
+
     /// displaying the list view
     @Override
     protected void onResume() {
@@ -75,34 +76,25 @@ public class LoadResturants extends AppCompatActivity implements ResturantAdapte
         recyclerView.setAdapter(adapter);
 
     }
+
     @Override
     public void onBackPressed() {
-        if(mDrawerLayout.isDrawerOpen(GravityCompat.START)){
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-        }
-        else
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else
             super.onBackPressed();
     }
 
     // To navigate to the menu of the resturant
     @Override
     public void OnResClick(int position) {
-        if(personDb.searchResturant(resturantlist.get(position).getName())){
-            Intent intent = new Intent(this , OwnerPage.class);
-            intent.putExtra("res_name" , resturantlist.get(position).getName());
-            Toast.makeText(getApplicationContext(), resturantlist.get(position).getName(), Toast.LENGTH_SHORT).show();
-            startActivity(intent);
-        }
-    }
+        personDb.searchResturant(resturantlist.get(position).getName());
+        Intent intent = new Intent(this, OwnerPage.class);
+        intent.putExtra("res_name", resturantlist.get(position).getName());
+        intent.putExtra("customer", "0");
+        Toast.makeText(getApplicationContext(), resturantlist.get(position).getName(), Toast.LENGTH_SHORT).show();
+        startActivity(intent);
 
-    //to detect the click on the button of sidebar
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        if (drawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -110,6 +102,7 @@ public class LoadResturants extends AppCompatActivity implements ResturantAdapte
         getMenuInflater().inflate(R.menu.search, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setQueryHint("search for restaurants");
         searchView.setOnQueryTextListener(this);
         return true;
     }
@@ -124,5 +117,18 @@ public class LoadResturants extends AppCompatActivity implements ResturantAdapte
     public boolean onQueryTextChange(String newText) {
         adapter.getFilter().filter(newText);
         return false;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.your_orders_nav:
+                intent = new Intent(this, orders.class);
+                intent.putExtra("customer", "0");
+                startActivity(intent);
+                break;
+        }
+        return true;
     }
 }
