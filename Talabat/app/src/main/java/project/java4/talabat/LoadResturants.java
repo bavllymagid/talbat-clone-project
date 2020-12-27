@@ -58,6 +58,7 @@ public class LoadResturants extends AppCompatActivity implements ResturantAdapte
         toggle.syncState();
 
 
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         layoutManager = new LinearLayoutManager(this);
     }
@@ -74,6 +75,8 @@ public class LoadResturants extends AppCompatActivity implements ResturantAdapte
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.setAdapter(adapter);
+
+        drawer.close();
 
     }
 
@@ -92,6 +95,7 @@ public class LoadResturants extends AppCompatActivity implements ResturantAdapte
         Intent intent = new Intent(this, OwnerPage.class);
         intent.putExtra("res_name", resturantlist.get(position).getName());
         intent.putExtra("customer", "0");
+        intent.putExtra("Email1" , getIntent().getStringExtra("Email"));
         Toast.makeText(getApplicationContext(), resturantlist.get(position).getName(), Toast.LENGTH_SHORT).show();
         startActivity(intent);
 
@@ -124,8 +128,9 @@ public class LoadResturants extends AppCompatActivity implements ResturantAdapte
         Intent intent;
         switch (item.getItemId()) {
             case R.id.your_orders_nav:
-                intent = new Intent(this, orders.class);
+                intent = new Intent(this, OrderActivity.class);
                 intent.putExtra("customer", "0");
+                intent.putExtra("Email1" , getIntent().getStringExtra("Email"));
                 startActivity(intent);
                 break;
         }

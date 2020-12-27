@@ -18,7 +18,7 @@ import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
-public class register_restaurantOwner extends AppCompatActivity {
+public class RegisterRestaurantOwner extends AppCompatActivity {
 
     byte[] image = null;
     ResturantDb db = new ResturantDb(this);
@@ -57,7 +57,7 @@ public class register_restaurantOwner extends AppCompatActivity {
                 Resturant resturant = new Resturant(image , resturantName);
                 db.addResturant(resturant);
                 personDb.createNewEmail(ownerName , ownerEmail , ownerPassword , "null ","null",resturantName ,"1");
-                Intent intent = new Intent(register_restaurantOwner.this , Login.class);
+                Intent intent = new Intent(RegisterRestaurantOwner.this , Login.class);
                 Toast.makeText(getApplicationContext() , "Registered successfully" , Toast.LENGTH_SHORT).show();
                 startActivity(intent);
 

@@ -54,6 +54,9 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
         nav_view = findViewById(R.id.nav_view);
         nav_view.setNavigationItemSelectedListener(this);
 
+
+
+
         if (!isCustomer) {
 
             btnAdd.setText("Add Meal");
@@ -84,6 +87,7 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
 
                     intent.putExtra("id", selected_meal.getId());
 
+
                     startActivity(intent);
 
                 }
@@ -108,13 +112,14 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
             contactList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                     Meal selected_meal = (Meal) parent.getItemAtPosition(position);
+                    Order order = new Order(getIntent().getStringExtra("Email1") , selected_meal.getMealName()
+                    ,selected_meal.getMealPrice(),selected_meal.getImage(),getIntent().getStringExtra("res_name")) ;
                     itemsPrice_ += selected_meal.getMealPrice();
                     numberOfItems_++;
                     itemsPrice.setText(itemsPrice_ + "");
                     numberOfItems.setText(numberOfItems_ + "");
-
+                    db.addOrder(order);
                 }
             });
         }
@@ -158,6 +163,7 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
         MealAdapter mealAdapter = new MealAdapter(this, R.layout.meal_data, meals);
         contactList.setAdapter(mealAdapter);
 
+        drawer.close();
     }
 
     @Override
@@ -165,11 +171,16 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
         Intent intent;
         switch (item.getItemId()) {
             case R.id.your_orders_nav:
-                intent = new Intent(this, orders.class);
-                if (isCustomer)
+                intent = new Intent(this, OrderActivity.class);
+                if (isCustomer) {
                     intent.putExtra("customer", "0");
-                else
+                    intent.putExtra("Email2",getIntent().getStringExtra("Email1"));
+                }
+                else {
                     intent.putExtra("customer", "1");
+                    String ownerResturant = getIntent().getStringExtra("returantName");
+                    intent.putExtra("resName", ownerResturant);
+                }
 
                 startActivity(intent);
                 break;

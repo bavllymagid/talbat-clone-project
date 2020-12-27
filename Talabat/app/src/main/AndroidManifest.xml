@@ -9,16 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".orders" />
-        <activity android:name=".register" />
-        <activity android:name=".register_restaurantOwner" />
+        <activity android:name=".OrderActivity" />
+        <activity android:name=".Register" />
+        <activity android:name=".RegisterRestaurantOwner" />
         <activity android:name=".OwnerPage" />
         <activity android:name=".AddMeal" />
         <activity android:name=".UpdateMeal" />
         <activity
             android:name=".Login"
             android:label="@string/title_login" />
-        <activity android:name=".register_customer" />
+        <activity android:name=".Register_customer" />
         <activity android:name=".LoadResturants" />
         <activity
             android:name=".MainActivity"

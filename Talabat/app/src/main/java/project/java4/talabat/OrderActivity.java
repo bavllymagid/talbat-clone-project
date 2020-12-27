@@ -9,10 +9,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class orders extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+import java.util.ArrayList;
+
+public class OrderActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     //initialization of drawer side bar
     private DrawerLayout drawer;
@@ -22,6 +25,10 @@ public class orders extends AppCompatActivity implements NavigationView.OnNaviga
 
     // for customer
     boolean isCustomer;
+
+    //the recycler view
+    ListView contactList ;
+    ResturantDb resturantDb = new ResturantDb(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +55,29 @@ public class orders extends AppCompatActivity implements NavigationView.OnNaviga
         //to save the state of drawer
         toggle.syncState();
 
+        //the list view
+        contactList = (ListView) findViewById(R.id.recyclerview);
 
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        ArrayList<Order> orders;
+        // to get the name of the resturant from owner page and login page to the list
+        String ownerOrders = getIntent().getStringExtra("resName");
+        //to send the email to the order page
+        String customerOrders = getIntent().getStringExtra("Email2");
+        if (customerOrders != null ) {
+            orders = resturantDb.getAllCustomerOrders(customerOrders);
+        } else {
+            orders = resturantDb.getAllRestaurantOrders(ownerOrders);
+        }
+
+        OrdersAdapter orderAdapter = new OrdersAdapter(this, R.layout.order_data, orders);
+        contactList.setAdapter(orderAdapter);
 
     }
 
@@ -57,12 +86,7 @@ public class orders extends AppCompatActivity implements NavigationView.OnNaviga
         Intent intent;
         switch (item.getItemId()) {
             case R.id.home_nav:
-                if (isCustomer) {
-                    intent = new Intent(this, LoadResturants.class);
-                    startActivity(intent);
-                } else {
-                    finish();
-                }
+                finish();
                 break;
         }
         return true;

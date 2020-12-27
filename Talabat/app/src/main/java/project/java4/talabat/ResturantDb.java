@@ -35,7 +35,10 @@ public class ResturantDb extends SQLiteOpenHelper {
     private static final String ordersTable = "orders";
     private static final String orderMealName = "mealName";
     private static final String Resturant_name = "Res_name";
-    private static final String Oorder_id = "orderId" ;
+    private static final String orderEmail = "orderEmail" ;
+    private static final String orderImg = "orderImg" ;
+    private static final String orderMealPrice = "orderPrice" ;
+
 
     public ResturantDb(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -56,12 +59,12 @@ public class ResturantDb extends SQLiteOpenHelper {
                 + KEY_IMG + " blob,"+Res_name +" varchar(250))";
 
         //intializing the orders
-        String orders = "create table " + ordersTable + "(" + Oorder_id +" varchar(255) primary key,"
-                +Resturant_name+" varchar(255),"+orderMealName+" varchar(255))";
+        String orders_table = "create table " + ordersTable + "(" + orderEmail +" varchar(255) ,"
+                +Resturant_name+" varchar(255),"+orderMealName+" varchar(255),"+orderMealPrice+" varchar(255),"+orderImg+" blob)";
 
         db.execSQL(Resturant_table);
         db.execSQL(Meals_table);
-        db.execSQL(orders);
+        db.execSQL(orders_table);
 
     }
 
@@ -204,6 +207,81 @@ public class ResturantDb extends SQLiteOpenHelper {
 
     }
 
+
+
+    /*
+    Orders section
+     */
+
+    // to add meal to the resturant
+    public void addOrder(Order order) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(orderMealName , order.getMealName());
+        values.put(orderEmail , order.getEmail());
+        values.put(orderImg , order.getImage());
+        values.put(Resturant_name , order.getRestaurantName());
+        values.put(orderMealPrice , order.getMealPrice());
+        db.insert(ordersTable, null, values);
+    }
+
+    // to get all the orders from the data base
+    public ArrayList<Order> getAllCustomerOrders(String Email) {
+        ArrayList<Order> orders = new ArrayList<>();
+
+        String select_query = "select * from " + ordersTable;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(select_query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                if(Email.equals(cursor.getString(cursor.getColumnIndex(orderEmail)))) {
+                    String email = cursor.getString(cursor.getColumnIndex(orderEmail));
+                    String orderName = cursor.getString(cursor.getColumnIndex(orderMealName));
+                    int orderPrice = cursor.getInt(cursor.getColumnIndex(orderMealPrice));
+                    byte[] image = cursor.getBlob(cursor.getColumnIndex(orderImg));
+                    String resturantName = cursor.getString(cursor.getColumnIndex(Resturant_name));
+
+                    Order order = new Order(email , orderName , orderPrice , image , resturantName);
+
+                    orders.add(order);
+                }
+            } while (cursor.moveToNext());
+
+        }
+        return orders;
+    }
+
+    //to get all the orders of the resturant
+    public ArrayList<Order> getAllRestaurantOrders(String restaurantName) {
+        ArrayList<Order> orders = new ArrayList<>();
+
+        String select_query = "select * from " + ordersTable;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(select_query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                if(restaurantName.equals(cursor.getString(cursor.getColumnIndex(Resturant_name)))) {
+                    String email = cursor.getString(cursor.getColumnIndex(orderEmail));
+                    String orderName = cursor.getString(cursor.getColumnIndex(orderMealName));
+                    int orderPrice = cursor.getInt(cursor.getColumnIndex(orderMealPrice));
+                    byte[] image = cursor.getBlob(cursor.getColumnIndex(orderImg));
+                    String resturantName = cursor.getString(cursor.getColumnIndex(Resturant_name));
+
+                    Order order = new Order(email , orderName , orderPrice , image , resturantName);
+
+                    orders.add(order);
+                }
+            } while (cursor.moveToNext());
+
+        }
+        return orders;
+    }
 
 
 }

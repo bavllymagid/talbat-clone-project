@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class register_customer extends AppCompatActivity {
+public class Register_customer extends AppCompatActivity {
 
     EditText name , email , password , phone ,address;
     Button registerButton ;
@@ -36,7 +36,7 @@ public class register_customer extends AppCompatActivity {
                     if(!personDb.searchEmail(email.getText().toString())){
                         if(personDb.createNewEmail(name.getText().toString(), email.getText().toString(), password.getText().toString()
                                 , phone.getText().toString(), address.getText().toString(),null,"0")) {
-                            Intent intent = new Intent(register_customer.this , Login.class);
+                            Intent intent = new Intent(Register_customer.this , Login.class);
                             startActivity(intent);
                             Toast.makeText(getApplicationContext(), "registration succeeded ", Toast.LENGTH_SHORT).show();
                         }

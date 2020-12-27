@@ -36,6 +36,7 @@ public class Login extends AppCompatActivity {
                         sendResturant(v);
                     } else {
                         Intent intent = new Intent(Login.this, LoadResturants.class);
+                        intent.putExtra("Email" , usernameEditText.getText().toString());
                         startActivity(intent);
                     }
                 } else if (passwordEditText.getText().toString() == null ||
@@ -50,7 +51,8 @@ public class Login extends AppCompatActivity {
 
     //register_customer text function
     public void registering(View view) {
-        Intent intent = new Intent(this, register.class);
+        Intent intent = new Intent(this, Register.class);
+        intent.putExtra("Email" , usernameEditText.getText().toString());
         startActivity(intent);
     }
 
