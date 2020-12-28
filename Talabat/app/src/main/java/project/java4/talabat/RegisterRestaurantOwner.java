@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,25 +43,28 @@ public class RegisterRestaurantOwner extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isUserNameValid(email.getText().toString()) && isPasswordValid(password.getText().toString())) {
+                    if (!personDb.searchEmail(email.getText().toString())) {
+                        String ownerName = name.getText().toString();
+                        String ownerEmail = email.getText().toString();
+                        String ownerPassword = password.getText().toString();
 
-                String ownerName = name.getText().toString();
-                String ownerEmail = email.getText().toString();
-                String ownerPassword = password.getText().toString();
+                        String resturantName = resturant_name.getText().toString();
+                        System.out.println(ownerEmail + ownerName + ownerPassword + resturantName + "\n\n\n\n\n\n\n\n\n\n");
 
-                String resturantName = resturant_name.getText().toString();
-                System.out.println(ownerEmail + ownerName + ownerPassword+resturantName+"\n\n\n\n\n\n\n\n\n\n");
+                        BitmapDrawable drawable = (BitmapDrawable) pickImage.getDrawable();
+                        Bitmap bitmap = drawable.getBitmap();
+                        image = getBytes(bitmap);
 
-                BitmapDrawable drawable = (BitmapDrawable) pickImage.getDrawable();
-                Bitmap bitmap = drawable.getBitmap();
-                image = getBytes(bitmap);
-
-                Resturant resturant = new Resturant(image , resturantName);
-                db.addResturant(resturant);
-                personDb.createNewEmail(ownerName , ownerEmail , ownerPassword , "null ","null",resturantName ,"1");
-                Intent intent = new Intent(RegisterRestaurantOwner.this , Login.class);
-                Toast.makeText(getApplicationContext() , "Registered successfully" , Toast.LENGTH_SHORT).show();
-                startActivity(intent);
-
+                        Resturant resturant = new Resturant(image, resturantName);
+                        db.addResturant(resturant);
+                        personDb.createNewEmail(ownerName, ownerEmail, ownerPassword, "null ", "null", resturantName, "1");
+                        Intent intent = new Intent(RegisterRestaurantOwner.this, Login.class);
+                        Toast.makeText(getApplicationContext(), "Registered successfully", Toast.LENGTH_SHORT).show();
+                        startActivity(intent);
+                    } else
+                        Toast.makeText(getApplicationContext(), "The Email is already found", Toast.LENGTH_SHORT).show();
+                }else Toast.makeText(getApplicationContext(), "Enter valid Input" ,Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -99,5 +103,23 @@ public class RegisterRestaurantOwner extends AppCompatActivity {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
         return stream.toByteArray();
+    }
+
+
+    // A placeholder username validation check
+    private boolean isUserNameValid(String username) {
+        if (username == null) {
+            return false;
+        }
+        if (username.contains("@")) {
+            return Patterns.EMAIL_ADDRESS.matcher(username).matches();
+        } else {
+            return false;
+        }
+    }
+
+    // A placeholder password validation check
+    private boolean isPasswordValid(String password) {
+        return password != null && password.trim().length() > 5;
     }
 }

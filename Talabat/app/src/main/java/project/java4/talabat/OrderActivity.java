@@ -70,10 +70,14 @@ public class OrderActivity extends AppCompatActivity implements NavigationView.O
         String ownerOrders = getIntent().getStringExtra("resName");
         //to send the email to the order page
         String customerOrders = getIntent().getStringExtra("Email2");
+        // to get the email from load resturant to order page
+        String loadToOwner = getIntent().getStringExtra("Email1");
         if (customerOrders != null ) {
             orders = resturantDb.getAllCustomerOrders(customerOrders);
-        } else {
+        } else if (ownerOrders != null) {
             orders = resturantDb.getAllRestaurantOrders(ownerOrders);
+        }else{
+            orders = resturantDb.getAllCustomerOrders(loadToOwner);
         }
 
         OrdersAdapter orderAdapter = new OrdersAdapter(this, R.layout.order_data, orders);

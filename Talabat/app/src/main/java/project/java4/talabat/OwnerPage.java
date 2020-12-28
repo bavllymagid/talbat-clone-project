@@ -113,7 +113,7 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Meal selected_meal = (Meal) parent.getItemAtPosition(position);
-                    Order order = new Order(getIntent().getStringExtra("Email1") , selected_meal.getMealName()
+                    Order order = new Order(getIntent().getStringExtra("Email") , selected_meal.getMealName()
                     ,selected_meal.getMealPrice(),selected_meal.getImage(),getIntent().getStringExtra("res_name")) ;
                     itemsPrice_ += selected_meal.getMealPrice();
                     numberOfItems_++;
