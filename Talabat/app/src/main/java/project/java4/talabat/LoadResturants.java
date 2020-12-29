@@ -133,6 +133,10 @@ public class LoadResturants extends AppCompatActivity implements ResturantAdapte
                 intent.putExtra("Email1" , getIntent().getStringExtra("Email"));
                 startActivity(intent);
                 break;
+            case R.id.logout:
+                intent = new Intent(this , Login.class);
+                startActivity(intent);
+                break;
         }
         return true;
     }

@@ -26,6 +26,10 @@
             android:icon="@drawable/outline_info_24"
             android:title="About" />
 
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/ic_baseline_login_24"
+            android:title="Logout" />
     </group>
 
 

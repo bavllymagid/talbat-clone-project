@@ -92,6 +92,10 @@ public class OrderActivity extends AppCompatActivity implements NavigationView.O
             case R.id.home_nav:
                 finish();
                 break;
+            case R.id.logout:
+                intent = new Intent(this , Login.class);
+                startActivity(intent);
+                break;
         }
         return true;
     }
