@@ -87,20 +87,20 @@ public class ResturantAdapter extends RecyclerView.Adapter<ResturantAdapter.Rest
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            List<Resturant>filteredPokemon = new ArrayList<>();
+            List<Resturant>filteredRestuarants = new ArrayList<>();
             if(constraint==null || constraint.length()==0){
-                filteredPokemon.addAll(allResturants);
+                filteredRestuarants.addAll(allResturants);
             }else {
                 String filterpattern =constraint.toString().toLowerCase().trim();
                 for(Resturant item :allResturants){
                     if(item.getName().toLowerCase().contains(filterpattern)){
-                        filteredPokemon.add(item);
+                        filteredRestuarants.add(item);
                     }
                 }
             }
             FilterResults results = new FilterResults();
-            results.values = filteredPokemon;
-            results.count = filteredPokemon.size();
+            results.values = filteredRestuarants;
+            results.count = filteredRestuarants.size();
             return results;
         }
         // clear the old list and display the new one

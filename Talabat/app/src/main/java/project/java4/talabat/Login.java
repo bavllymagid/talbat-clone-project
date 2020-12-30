@@ -33,7 +33,7 @@ public class Login extends AppCompatActivity {
                 if (ePersonDb.searchEmail(usernameEditText.getText().toString()) && ePersonDb.searchPassword(passwordEditText.getText().toString())) {
                     // to send the owner to owner page
                     if (!ePersonDb.searchState(usernameEditText.getText().toString())) {
-                        sendResturant(v);
+                        sendrestaurant(v);
                     } else {
                         Intent intent = new Intent(Login.this, LoadResturants.class);
                         intent.putExtra("Email" , usernameEditText.getText().toString());
@@ -57,7 +57,7 @@ public class Login extends AppCompatActivity {
     }
 
     // to send the owner to his resturant
-    public void sendResturant(View view) {
+    public void sendrestaurant(View view) {
         Intent intent = new Intent(this, OwnerPage.class);
         intent.putExtra("returantName", ePersonDb.getResturantName(usernameEditText.getText().toString()));
         intent.putExtra("customer", "1");

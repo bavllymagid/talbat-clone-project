@@ -73,9 +73,8 @@ public class AddMeal extends AppCompatActivity {
 
     }
 
-
+    // to get the image from gallery
     public void openGalleries(View view) {
-
         Intent intentImg = new Intent(Intent.ACTION_GET_CONTENT);
         intentImg.setType("image/*");
         startActivityForResult(intentImg, 100);

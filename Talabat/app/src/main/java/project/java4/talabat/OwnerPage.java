@@ -86,7 +86,6 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
 
                     intent.putExtra("id", selected_meal.getId());
 
-
                     startActivity(intent);
 
                 }
@@ -105,8 +104,10 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getApplicationContext(), "ordered", Toast.LENGTH_SHORT).show();
+                    //to reset gui
                     itemsPrice.setText("0");
                     numberOfItems.setText("0");
+                    // to reset actual value
                     itemsPrice_ = 0;
                     numberOfItems_= 0;
                 }
