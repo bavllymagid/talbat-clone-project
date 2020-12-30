@@ -1,6 +1,6 @@
 package project.java4.talabat;
 
-public class Order  {
+public class Order extends Resturant{
     private String mealName;
     private int mealPrice;
     private byte[] image;
@@ -8,6 +8,7 @@ public class Order  {
     private String email;
 
     public Order(String email,String mealName, int mealPrice, byte[] image,String restaurantName) {
+        super(image,restaurantName);
         this.mealName = mealName;
         this.mealPrice = mealPrice;
         this.image = image;

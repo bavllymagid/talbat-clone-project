@@ -21,12 +21,12 @@ import java.io.InputStream;
 
 public class RegisterRestaurantOwner extends AppCompatActivity {
 
-    byte[] image = null;
-    ResturantDb db = new ResturantDb(this);
-    PersonDb personDb = new PersonDb(this);
-    ImageButton pickImage;
-    EditText name , password , email , resturant_name;
-    Button add ;
+    private byte[] image = null;
+    private ResturantDb db = new ResturantDb(this);
+    private PersonDb personDb = new PersonDb(this);
+    private ImageButton pickImage;
+    private EditText name , password , email , resturant_name;
+    private Button add ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

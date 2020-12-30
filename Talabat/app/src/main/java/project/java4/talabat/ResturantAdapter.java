@@ -25,7 +25,6 @@ public class ResturantAdapter extends RecyclerView.Adapter<ResturantAdapter.Rest
     public static class ResturantViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView imageView;
         public TextView textView1;
-        public TextView textView2;
         public OnResListener onResClick ;
 
     // the item view holder

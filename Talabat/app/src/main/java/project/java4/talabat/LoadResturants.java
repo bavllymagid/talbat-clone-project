@@ -76,6 +76,8 @@ public class LoadResturants extends AppCompatActivity implements ResturantAdapte
 
         recyclerView.setAdapter(adapter);
 
+        nav_view.setCheckedItem(R.id.home_nav);
+
         drawer.close();
 
     }

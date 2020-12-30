@@ -21,12 +21,12 @@ import java.io.InputStream;
 
 public class AddMeal extends AppCompatActivity {
 
-    EditText editMealName, editMealPrice,editMealDescription;
-    Button btnConfirm;
-    ImageButton pickImag;
+    private EditText editMealName, editMealPrice,editMealDescription;
+    private Button btnConfirm;
+    private ImageButton pickImag;
 
-    byte[] image = null;
-    ResturantDb db;
+    private byte[] image = null;
+    private ResturantDb db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

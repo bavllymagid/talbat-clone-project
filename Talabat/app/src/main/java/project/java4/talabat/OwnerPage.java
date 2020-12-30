@@ -23,11 +23,11 @@ import java.util.ArrayList;
 
 public class OwnerPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    ListView contactList;
-    Button btnAdd;
-    ResturantDb db;
-    TextView numberOfItems;
-    TextView itemsPrice;
+    private ListView contactList;
+    private Button btnAdd;
+    private ResturantDb db;
+    private TextView numberOfItems;
+    private TextView itemsPrice;
 
     //for toolbar
     private Toolbar toolbar;
@@ -39,6 +39,7 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
     boolean isCustomer;
     int numberOfItems_ = 0;
     double itemsPrice_ = 0.0f;
+    private Order order ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +54,6 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
         itemsPrice = findViewById(R.id.itemsPrice);
         nav_view = findViewById(R.id.nav_view);
         nav_view.setNavigationItemSelectedListener(this);
-
-
 
 
         if (!isCustomer) {
@@ -106,6 +105,10 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getApplicationContext(), "ordered", Toast.LENGTH_SHORT).show();
+                    itemsPrice.setText("0");
+                    numberOfItems.setText("0");
+                    itemsPrice_ = 0;
+                    numberOfItems_= 0;
                 }
             });
 
@@ -113,7 +116,7 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Meal selected_meal = (Meal) parent.getItemAtPosition(position);
-                    Order order = new Order(getIntent().getStringExtra("Email1") , selected_meal.getMealName()
+                    order = new Order(getIntent().getStringExtra("Email1") , selected_meal.getMealName()
                     ,selected_meal.getMealPrice(),selected_meal.getImage(),getIntent().getStringExtra("res_name")) ;
                     itemsPrice_ += selected_meal.getMealPrice();
                     numberOfItems_++;
@@ -163,6 +166,7 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
         MealAdapter mealAdapter = new MealAdapter(this, R.layout.meal_data, meals);
         contactList.setAdapter(mealAdapter);
 
+        nav_view.setCheckedItem(R.id.home_nav);
         drawer.close();
     }
 

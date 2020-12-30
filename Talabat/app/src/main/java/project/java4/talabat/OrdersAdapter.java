@@ -40,7 +40,6 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         Order currentOrder = getItem(position);
 
         orderName.setText(currentOrder.getMealName());
-//        orderPrice.setText(String.valueOf(currentContact.getPhone()));
 
         if ( currentOrder.getMealPrice() ==0){
             orderPrice.setText("$");

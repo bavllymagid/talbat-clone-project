@@ -1,7 +1,7 @@
 package project.java4.talabat;
 
 
-public class Meal {
+public class Meal extends Resturant{
 
     private int id;
     private String mealName;
@@ -12,6 +12,7 @@ public class Meal {
 
 
     public Meal(int id, String mealName, String mealDescription, int mealPrice, byte[] image) {
+        super(image, "");
         this.id = id;
         this.mealName = mealName;
         this.mealDescription = mealDescription;
@@ -21,6 +22,7 @@ public class Meal {
 
 
     public Meal(String mealName, String mealDescription, int mealPrice, byte[] image, String restaurantName) {
+        super(image, restaurantName);
         this.mealName = mealName;
         this.mealDescription = mealDescription;
         this.mealPrice = mealPrice;

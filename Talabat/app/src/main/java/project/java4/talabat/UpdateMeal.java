@@ -26,11 +26,11 @@ import java.io.InputStream;
 
 public class UpdateMeal extends AppCompatActivity {
 
-    ResturantDb db;
+    private ResturantDb db;
 
-    EditText editMealName, editMealPrice,editMealDescription;
-    Button btnUpdate;
-    ImageButton pickImag;
+    private EditText editMealName, editMealPrice,editMealDescription;
+    private Button btnUpdate;
+    private ImageButton pickImag;
 
     byte[] image = null;
     int id;

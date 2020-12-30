@@ -12,9 +12,9 @@ import android.widget.Toast;
 
 public class Register_customer extends AppCompatActivity {
 
-    EditText name , email , password , phone ,address;
-    Button registerButton ;
-    PersonDb personDb = new PersonDb(this);
+    private EditText name , email , password , phone ,address;
+    private Button registerButton ;
+    private PersonDb personDb = new PersonDb(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

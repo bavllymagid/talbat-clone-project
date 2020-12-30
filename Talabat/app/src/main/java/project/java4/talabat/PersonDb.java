@@ -28,14 +28,14 @@ public class PersonDb extends SQLiteOpenHelper {
         onCreate(db);
     }
     /// adding data to the table
-    public boolean createNewEmail(String name , String email , String password , String phone , String address, String resturantName , String key){
+    public boolean createNewEmail(String name , String email , String password , String phone , String address, String restaurantName , String key){
         ContentValues row = new ContentValues();
         row.put("name", name);
         row.put("email", email);
         row.put("password", password);
         row.put("phone", phone);
         row.put("address", address);
-        row.put("res_name" , resturantName);
+        row.put("res_name" , restaurantName);
         row.put("key_d" , key);
 
         database = getWritableDatabase();
