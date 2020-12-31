@@ -3,12 +3,14 @@ package project.java4.talabat;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,7 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
-public class OwnerPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class OwnerPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
 
     private ListView contactList;
     private Button btnAdd;
@@ -34,6 +36,7 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView nav_view;
+    private MealAdapter mealAdapter;
 
     // for customer
     boolean isCustomer;
@@ -155,16 +158,16 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
         super.onResume();
 
         ArrayList<Meal> meals;
-        // to get the name of the resturant from owner page and login page to the list
-        String resturant_name = getIntent().getStringExtra("res_name");
-        String ownerResturant = getIntent().getStringExtra("returantName");
-        if (ownerResturant != null) {
-            meals = db.getAllMeals(ownerResturant);
+        // to get the name of the restaurant from owner page and login page to the list
+        String restaurant_name = getIntent().getStringExtra("res_name");
+        String ownerRestaurant = getIntent().getStringExtra("restaurantName");
+        if (ownerRestaurant != null) {
+            meals = db.getAllMeals(ownerRestaurant);
         } else {
-            meals = db.getAllMeals(resturant_name);
+            meals = db.getAllMeals(restaurant_name);
         }
 
-        MealAdapter mealAdapter = new MealAdapter(this, R.layout.meal_data, meals);
+        mealAdapter = new MealAdapter(this, R.layout.meal_data, meals);
         contactList.setAdapter(mealAdapter);
 
         nav_view.setCheckedItem(R.id.home_nav);
@@ -195,5 +198,27 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
                 break;
         }
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setQueryHint("search for meals");
+        searchView.setOnQueryTextListener(this);
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String newText) {
+        mealAdapter.getFilter().filter(newText);
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        mealAdapter.getFilter().filter(newText);
+        return false;
     }
 }

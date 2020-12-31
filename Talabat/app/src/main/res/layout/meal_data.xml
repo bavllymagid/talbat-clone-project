@@ -22,7 +22,7 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/orderData"
+            android:id="@+id/mealName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -49,7 +49,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/mealPrice"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/orderData" />
+            app:layout_constraintTop_toBottomOf="@+id/mealName" />
 
         <TextView
             android:id="@+id/mealPrice"

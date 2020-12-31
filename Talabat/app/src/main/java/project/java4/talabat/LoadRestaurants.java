@@ -21,16 +21,16 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 
-public class LoadResturants extends AppCompatActivity implements ResturantAdapter.OnResListener, SearchView.OnQueryTextListener, NavigationView.OnNavigationItemSelectedListener {
+public class LoadRestaurants extends AppCompatActivity implements RestaurantAdapter.OnResListener, SearchView.OnQueryTextListener, NavigationView.OnNavigationItemSelectedListener {
     // initialization of recycler view
     private RecyclerView recyclerView;
-    private ResturantAdapter adapter;
+    private RestaurantAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<Resturant> resturantlist = new ArrayList<>();
+    private ArrayList<Resturant> restaurantList = new ArrayList<>();
     //initialization of drawer side bar
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
-    NavigationView nav_view;
+    private NavigationView nav_view;
     private Toolbar toolbar;
     private ResturantDb dbase = new ResturantDb(this);
     PersonDb personDb = new PersonDb(this);
@@ -42,6 +42,32 @@ public class LoadResturants extends AppCompatActivity implements ResturantAdapte
         initializeUI();
     }
 
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else
+            super.onBackPressed();
+    }
+
+    /// displaying the list view
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        restaurantList = dbase.getAllResturants();
+
+        adapter = new RestaurantAdapter(restaurantList, this);
+
+        recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.setAdapter(adapter);
+
+        nav_view.setCheckedItem(R.id.home_nav);
+
+        drawer.close();
+
+    }
 
     private void initializeUI() {
         //initialization of drawer
@@ -63,42 +89,33 @@ public class LoadResturants extends AppCompatActivity implements ResturantAdapte
         layoutManager = new LinearLayoutManager(this);
     }
 
-    /// displaying the list view
     @Override
-    protected void onResume() {
-        super.onResume();
-
-        resturantlist = dbase.getAllResturants();
-
-        adapter = new ResturantAdapter(resturantlist, this);
-
-        recyclerView.setLayoutManager(layoutManager);
-
-        recyclerView.setAdapter(adapter);
-
-        nav_view.setCheckedItem(R.id.home_nav);
-
-        drawer.close();
-
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.your_orders_nav:
+                intent = new Intent(this, OrderActivity.class);
+                intent.putExtra("customer", "0");
+                intent.putExtra("Email1" , getIntent().getStringExtra("Email"));
+                startActivity(intent);
+                break;
+            case R.id.logout:
+                intent = new Intent(this , Login.class);
+                startActivity(intent);
+                break;
+        }
+        return true;
     }
 
-    @Override
-    public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else
-            super.onBackPressed();
-    }
-
-    // To navigate to the menu of the resturant
+    // To navigate to the menu of the restaurant
     @Override
     public void OnResClick(int position) {
-        personDb.searchResturant(resturantlist.get(position).getName());
+        personDb.searchResturant(restaurantList.get(position).getName());
         Intent intent = new Intent(this, OwnerPage.class);
-        intent.putExtra("res_name", resturantlist.get(position).getName());
+        intent.putExtra("res_name", restaurantList.get(position).getName());
         intent.putExtra("customer", "0");
         intent.putExtra("Email1" , getIntent().getStringExtra("Email"));
-        Toast.makeText(getApplicationContext(), resturantlist.get(position).getName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), restaurantList.get(position).getName(), Toast.LENGTH_SHORT).show();
         startActivity(intent);
     }
 
@@ -124,21 +141,5 @@ public class LoadResturants extends AppCompatActivity implements ResturantAdapte
         return false;
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Intent intent;
-        switch (item.getItemId()) {
-            case R.id.your_orders_nav:
-                intent = new Intent(this, OrderActivity.class);
-                intent.putExtra("customer", "0");
-                intent.putExtra("Email1" , getIntent().getStringExtra("Email"));
-                startActivity(intent);
-                break;
-            case R.id.logout:
-                intent = new Intent(this , Login.class);
-                startActivity(intent);
-                break;
-        }
-        return true;
-    }
+
 }
