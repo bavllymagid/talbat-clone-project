@@ -23,7 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
-public class OwnerPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
+public class OwnerPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,SearchView.OnQueryTextListener {
 
     private ListView contactList;
     private Button btnAdd;
@@ -158,13 +158,13 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
         super.onResume();
 
         ArrayList<Meal> meals;
-        // to get the name of the restaurant from owner page and login page to the list
-        String restaurant_name = getIntent().getStringExtra("res_name");
-        String ownerRestaurant = getIntent().getStringExtra("restaurantName");
-        if (ownerRestaurant != null) {
-            meals = db.getAllMeals(ownerRestaurant);
+        // to get the name of the resturant from owner page and login page to the list
+        String resturant_name = getIntent().getStringExtra("res_name");
+        String ownerResturant = getIntent().getStringExtra("returantName");
+        if (ownerResturant != null) {
+            meals = db.getAllMeals(ownerResturant);
         } else {
-            meals = db.getAllMeals(restaurant_name);
+            meals = db.getAllMeals(resturant_name);
         }
 
         mealAdapter = new MealAdapter(this, R.layout.meal_data, meals);

@@ -14,13 +14,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class MealAdapter extends ArrayAdapter<Meal> implements Filterable {
+
     private ArrayList<Meal> mealsList;
     private ArrayList<Meal> allMealsList;
     Context context;
@@ -33,20 +33,19 @@ public class MealAdapter extends ArrayAdapter<Meal> implements Filterable {
         this.mealsList = (ArrayList<Meal>) objects;
         allMealsList = new ArrayList<>();
         this.allMealsList.addAll(mealsList);
-
     }
-
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        convertView = LayoutInflater.from(context).inflate(resource, parent, false);
+        convertView = LayoutInflater.from(context).inflate(resource, parent, false  );
 
-        TextView mealName = (TextView) convertView.findViewById(R.id.mealName);
-        TextView mealDescription = (TextView) convertView.findViewById(R.id.mealDescription);
-        TextView mealPrice = (TextView) convertView.findViewById(R.id.mealPrice);
+        TextView mealName = (TextView)convertView.findViewById(R.id.mealName);
+        TextView mealDescription = (TextView)convertView.findViewById(R.id.mealDescription);
+        TextView mealPrice = (TextView)convertView.findViewById(R.id.mealPrice);
         ImageView imgUser = (ImageView) convertView.findViewById(R.id.imgUser);
+
 
 
         Meal currentMeal = getItem(position);
@@ -55,10 +54,10 @@ public class MealAdapter extends ArrayAdapter<Meal> implements Filterable {
         mealDescription.setText(currentMeal.getMealDescription());
 //        mealPrice.setText(String.valueOf(currentContact.getPhone()));
 
-        if (currentMeal.getMealPrice() == 0) {
+        if ( currentMeal.getMealPrice() ==0){
             mealPrice.setText("$");
-        } else {
-            mealPrice.setText(String.valueOf(currentMeal.getMealPrice()) + "$");
+        }else {
+            mealPrice.setText(String.valueOf(currentMeal.getMealPrice())+"$");
         }
 
 

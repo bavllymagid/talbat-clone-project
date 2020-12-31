@@ -19,7 +19,7 @@
             android:name=".Login"
             android:label="@string/title_login" />
         <activity android:name=".Register_customer" />
-        <activity android:name=".LoadRestaurants" />
+        <activity android:name=".LoadResturants" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
