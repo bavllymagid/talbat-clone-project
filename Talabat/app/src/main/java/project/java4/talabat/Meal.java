@@ -1,7 +1,7 @@
 package project.java4.talabat;
 
 
-public class Meal extends Resturant{
+public class Meal {
 
     private int id;
     private String mealName;
@@ -10,9 +10,10 @@ public class Meal extends Resturant{
     private byte[] image;
     private String restaurantName;
 
-
+    /**
+     * for updating meals
+     */
     public Meal(int id, String mealName, String mealDescription, int mealPrice, byte[] image) {
-        super(image, "");
         this.id = id;
         this.mealName = mealName;
         this.mealDescription = mealDescription;
@@ -20,9 +21,10 @@ public class Meal extends Resturant{
         this.image = image;
     }
 
-
+    /**
+     * for declaring meals
+     */
     public Meal(String mealName, String mealDescription, int mealPrice, byte[] image, String restaurantName) {
-        super(image, restaurantName);
         this.mealName = mealName;
         this.mealDescription = mealDescription;
         this.mealPrice = mealPrice;
@@ -34,14 +36,23 @@ public class Meal extends Resturant{
         return restaurantName;
     }
 
-    public int getId() {
-        return id;
-    }
-
+    /**
+     * setters
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    public void setMealPrice(int mealPrice) {
+        this.mealPrice = mealPrice;
+    }
+
+    /**
+     * getters
+     */
+    public int getId() {
+        return id;
+    }
 
     public String getMealName() {
         return mealName;
@@ -51,28 +62,12 @@ public class Meal extends Resturant{
         return mealDescription;
     }
 
-    public void setMealName(String mealName) {
-        this.mealName = mealName;
-    }
-
-    public void setMealDescription(String mealDescription) {
-        this.mealDescription = mealDescription;
-    }
-
     public int getMealPrice() {
         return mealPrice;
     }
 
-    public void setMealPrice(int mealPrice) {
-        this.mealPrice = mealPrice;
-    }
-
     public byte[] getImage() {
         return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
     }
 
 

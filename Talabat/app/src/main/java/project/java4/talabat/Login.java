@@ -8,12 +8,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import androidx.core.view.GravityCompat;
 
 
 public class Login extends AppCompatActivity {
+    /**
+     * layout elements
+     */
     EditText usernameEditText;
     EditText passwordEditText;
     Button loginButton;
+
+    /**
+     * users database
+     */
     PersonDb ePersonDb;
 
     @Override
@@ -33,14 +41,13 @@ public class Login extends AppCompatActivity {
                 if (ePersonDb.searchEmail(usernameEditText.getText().toString()) && ePersonDb.searchPassword(passwordEditText.getText().toString())) {
                     // to send the owner to owner page
                     if (!ePersonDb.searchState(usernameEditText.getText().toString())) {
-                        sendrestaurant(v);
+                        sendRestaurant(v);
                     } else {
-                        Intent intent = new Intent(Login.this, LoadResturants.class);
-                        intent.putExtra("Email" , usernameEditText.getText().toString());
+                        Intent intent = new Intent(Login.this, LoadRestaurants.class);
+                        intent.putExtra("Email", usernameEditText.getText().toString());
                         startActivity(intent);
                     }
-                } else if (passwordEditText.getText().toString() == null ||
-                        !usernameEditText.getText().toString().contains("@")) {
+                } else if (!usernameEditText.getText().toString().contains("@")) {
                     Toast.makeText(getApplicationContext(), "Invalid input", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "The email or the password is incorrect", Toast.LENGTH_SHORT).show();
@@ -49,19 +56,23 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    //register_customer text function
+    /**
+     * opens register layout
+     */
     public void registering(View view) {
         Intent intent = new Intent(this, Register.class);
-        intent.putExtra("Email" , usernameEditText.getText().toString());
+        intent.putExtra("Email", usernameEditText.getText().toString());
         startActivity(intent);
     }
 
-    // to send the owner to his resturant
-    public void sendrestaurant(View view) {
+    /**
+     * opens owner page (restaurant page) layout
+     */
+    public void sendRestaurant(View view) {
         Intent intent = new Intent(this, OwnerPage.class);
-        intent.putExtra("returantName", ePersonDb.getResturantName(usernameEditText.getText().toString()));
+        intent.putExtra("restaurantName", ePersonDb.getRestaurantName(usernameEditText.getText().toString()));
         intent.putExtra("customer", "1");
-        Toast.makeText(getApplicationContext(), ePersonDb.getResturantName(usernameEditText.getText().toString()), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), ePersonDb.getRestaurantName(usernameEditText.getText().toString()), Toast.LENGTH_SHORT).show();
         startActivity(intent);
     }
 

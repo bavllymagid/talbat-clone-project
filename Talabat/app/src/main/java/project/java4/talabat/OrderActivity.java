@@ -17,17 +17,26 @@ import java.util.ArrayList;
 
 public class OrderActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    //initialization of drawer side bar
+    /**
+     * declaration of drawer side bar
+     */
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
-    private Toolbar toolbar;
     private NavigationView nav_view;
+    private Toolbar toolbar;
 
-    // for customer
+    /**
+     * to check if the layout is opened by a customer
+     */
     boolean isCustomer;
 
-    //the recycler view
-    ListView contactList ;
+    /**
+     * declaration of list view
+     */
+    ListView contactList;
+    /**
+     * restaurants database
+     */
     ResturantDb resturantDb = new ResturantDb(this);
 
     @Override
@@ -56,7 +65,7 @@ public class OrderActivity extends AppCompatActivity implements NavigationView.O
         toggle.syncState();
 
         //the list view
-        contactList = (ListView) findViewById(R.id.recyclerview);
+        contactList = findViewById(R.id.recyclerview);
 
     }
 
@@ -66,17 +75,17 @@ public class OrderActivity extends AppCompatActivity implements NavigationView.O
         super.onResume();
 
         ArrayList<Order> orders;
-        // to get the name of the resturant from owner page and login page to the list
+        // to get the name of the restaurant from owner page and login page to the list
         String ownerOrders = getIntent().getStringExtra("resName");
         //to send the email to the order page
         String customerOrders = getIntent().getStringExtra("Email2");
-        // to get the email from load resturant to order page
+        // to get the email from load restaurant to order page
         String loadToOwner = getIntent().getStringExtra("Email1");
-        if (customerOrders != null ) {
+        if (customerOrders != null) {
             orders = resturantDb.getAllCustomerOrders(customerOrders);
         } else if (ownerOrders != null) {
             orders = resturantDb.getAllRestaurantOrders(ownerOrders);
-        }else{
+        } else {
             orders = resturantDb.getAllCustomerOrders(loadToOwner);
         }
 
@@ -85,6 +94,12 @@ public class OrderActivity extends AppCompatActivity implements NavigationView.O
 
     }
 
+    /**
+     * checks for selected items on the drawer
+     *
+     * @param item the selected item
+     * @return the state of the selected item
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Intent intent;
@@ -93,7 +108,7 @@ public class OrderActivity extends AppCompatActivity implements NavigationView.O
                 finish();
                 break;
             case R.id.logout:
-                intent = new Intent(this , Login.class);
+                intent = new Intent(this, Login.class);
                 startActivity(intent);
                 break;
         }

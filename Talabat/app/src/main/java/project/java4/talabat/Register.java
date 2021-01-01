@@ -13,12 +13,13 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
     }
-    public void toRegister_customer(View view){
+
+    public void toRegister_customer(View view) {
         Intent intent = new Intent(this, Register_customer.class);
         startActivity(intent);
     }
 
-    public void toRegister_restaurant(View view){
+    public void toRegister_restaurant(View view) {
         Intent intent = new Intent(this, RegisterRestaurantOwner.class);
         startActivity(intent);
     }

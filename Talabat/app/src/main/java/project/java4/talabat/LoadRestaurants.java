@@ -22,16 +22,24 @@ import java.util.ArrayList;
 
 
 public class LoadRestaurants extends AppCompatActivity implements RestaurantAdapter.OnResListener, SearchView.OnQueryTextListener, NavigationView.OnNavigationItemSelectedListener {
-    // initialization of recycler view
+    /**
+     * declaration of recycler view
+     */
     private RecyclerView recyclerView;
     private RestaurantAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Resturant> restaurantList = new ArrayList<>();
-    //initialization of drawer side bar
+    /**
+     * declaration of drawer side bar
+     */
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView nav_view;
     private Toolbar toolbar;
+
+    /**
+     * restaurants and users databases
+     */
     private ResturantDb dbase = new ResturantDb(this);
     PersonDb personDb = new PersonDb(this);
 
@@ -42,6 +50,9 @@ public class LoadRestaurants extends AppCompatActivity implements RestaurantAdap
         initializeUI();
     }
 
+    /**
+     * for when going back in the work flow (previous activity for example)
+     */
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -50,7 +61,9 @@ public class LoadRestaurants extends AppCompatActivity implements RestaurantAdap
             super.onBackPressed();
     }
 
-    /// displaying the list view
+    /**
+     * displaying the list view
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -69,6 +82,9 @@ public class LoadRestaurants extends AppCompatActivity implements RestaurantAdap
 
     }
 
+    /**
+     * initialize elements
+     */
     private void initializeUI() {
         //initialization of drawer
         drawer = findViewById(R.id.drawer_layout);
@@ -84,11 +100,16 @@ public class LoadRestaurants extends AppCompatActivity implements RestaurantAdap
         toggle.syncState();
 
 
-
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        recyclerView = findViewById(R.id.recyclerview);
         layoutManager = new LinearLayoutManager(this);
     }
 
+    /**
+     * checks for selected items on the drawer
+     *
+     * @param item the selected item
+     * @return the state of the selected item
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Intent intent;
@@ -96,29 +117,34 @@ public class LoadRestaurants extends AppCompatActivity implements RestaurantAdap
             case R.id.your_orders_nav:
                 intent = new Intent(this, OrderActivity.class);
                 intent.putExtra("customer", "0");
-                intent.putExtra("Email1" , getIntent().getStringExtra("Email"));
+                intent.putExtra("Email1", getIntent().getStringExtra("Email"));
                 startActivity(intent);
                 break;
             case R.id.logout:
-                intent = new Intent(this , Login.class);
+                intent = new Intent(this, Login.class);
                 startActivity(intent);
                 break;
         }
         return true;
     }
 
-    // To navigate to the menu of the restaurant
+    /**
+     * To navigate to the menu of the restaurant
+     */
     @Override
     public void OnResClick(int position) {
-        personDb.searchResturant(restaurantList.get(position).getName());
+        personDb.searchRestaurant(restaurantList.get(position).getName());
         Intent intent = new Intent(this, OwnerPage.class);
         intent.putExtra("res_name", restaurantList.get(position).getName());
         intent.putExtra("customer", "0");
-        intent.putExtra("Email1" , getIntent().getStringExtra("Email"));
+        intent.putExtra("Email1", getIntent().getStringExtra("Email"));
         Toast.makeText(getApplicationContext(), restaurantList.get(position).getName(), Toast.LENGTH_SHORT).show();
         startActivity(intent);
     }
 
+    /**
+     * to add search view to toolbar
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search, menu);
@@ -129,6 +155,10 @@ public class LoadRestaurants extends AppCompatActivity implements RestaurantAdap
         return true;
     }
 
+
+    /**
+     * for search view and search algorithm
+     */
     @Override
     public boolean onQueryTextSubmit(String newText) {
         adapter.getFilter().filter(newText);

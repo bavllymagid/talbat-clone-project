@@ -13,8 +13,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-    
-   // log in button function
+
+    /**
+     * opens login layout
+     */
     public void loggingIn(View view){
         Intent intent = new Intent(this,Login.class);
         startActivity(intent);

@@ -30,7 +30,7 @@ public class UpdateMeal extends AppCompatActivity {
 
     private EditText editMealName, editMealPrice,editMealDescription;
     private Button btnUpdate;
-    private ImageButton pickImag;
+    private ImageButton pickImage;
 
     byte[] image = null;
     int id;
@@ -50,19 +50,19 @@ public class UpdateMeal extends AppCompatActivity {
         Meal meal = db.getMealById2(id);
 
 
-        editMealName = (EditText) findViewById(R.id.editMealName);
-        editMealDescription = (EditText) findViewById(R.id.editMealDescription);
-        editMealPrice = (EditText) findViewById(R.id.editMealPrice);
-        pickImag = (ImageButton) findViewById(R.id.pickImg);
+        editMealName =  findViewById(R.id.editMealName);
+        editMealDescription =  findViewById(R.id.editMealDescription);
+        editMealPrice =  findViewById(R.id.editMealPrice);
+        pickImage =  findViewById(R.id.pickImg);
 
-        btnUpdate = (Button) findViewById(R.id.btnUpdate);
+        btnUpdate =  findViewById(R.id.btnUpdate);
 
         editMealName.setText(meal.getMealName());
         editMealDescription.setText(meal.getMealDescription());
         editMealPrice.setText(meal.getMealPrice() + "");
 
         Bitmap bitmap = BitmapFactory.decodeByteArray(meal.getImage(), 0, meal.getImage().length);
-        pickImag.setImageBitmap(bitmap);
+        pickImage.setImageBitmap(bitmap);
         image = getBytes(bitmap);
 
 
@@ -80,7 +80,7 @@ public class UpdateMeal extends AppCompatActivity {
                     MealPrice = Integer.parseInt(editMealPrice.getText().toString());
                 }
 
-                BitmapDrawable drawable = (BitmapDrawable) pickImag.getDrawable();
+                BitmapDrawable drawable = (BitmapDrawable) pickImage.getDrawable();
                 Bitmap bitmap = drawable.getBitmap();
                 image = getBytes(bitmap);
 
@@ -112,22 +112,17 @@ public class UpdateMeal extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()) {
-            case R.id.item_delet:
-
-                showAlert();
-
-                break;
+        if (item.getItemId() == R.id.item_delet) {
+            showAlert();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
 
     private void showAlert() {
 
-        AlertDialog.Builder alertBilder = new AlertDialog.Builder(this);
-        alertBilder.setTitle("Are you sure you want delete?")
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        alertBuilder.setTitle("Are you sure you want delete?")
                 .setMessage("Are you sure?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
@@ -143,7 +138,7 @@ public class UpdateMeal extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
-        AlertDialog dialog = alertBilder.create();
+        AlertDialog dialog = alertBuilder.create();
         dialog.show();
     }
 
@@ -166,7 +161,7 @@ public class UpdateMeal extends AppCompatActivity {
             try {
                 InputStream inputStream = getContentResolver().openInputStream(uri);
                 Bitmap decodeStream = BitmapFactory.decodeStream(inputStream);
-                pickImag.setImageBitmap(decodeStream);
+                pickImage.setImageBitmap(decodeStream);
 
                 image = getBytes(decodeStream);
 

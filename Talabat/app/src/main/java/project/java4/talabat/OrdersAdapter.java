@@ -25,6 +25,9 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         this.resource = resource;
     }
 
+    /**
+     * waiting for bavlly to explain
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
