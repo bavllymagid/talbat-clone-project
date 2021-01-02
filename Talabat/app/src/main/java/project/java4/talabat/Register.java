@@ -16,11 +16,13 @@ public class Register extends AppCompatActivity {
     public void toRegister_customer(View view){
         Intent intent = new Intent(this, Register_customer.class);
         startActivity(intent);
+        finish();
     }
 
     public void toRegister_restaurant(View view){
         Intent intent = new Intent(this, RegisterRestaurantOwner.class);
         startActivity(intent);
+        finish();
     }
 
 }

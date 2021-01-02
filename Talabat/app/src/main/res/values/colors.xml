@@ -4,5 +4,7 @@
     <color name="colorPrimaryDark">#2B2B26</color>
     <color name="colorAccent">#FFEB3B</color>
     <color name="btnColor">#FF5A00</color>
+    <color name="black">#000000</color>
+    <color name="backo">#fff</color>
 
 </resources>

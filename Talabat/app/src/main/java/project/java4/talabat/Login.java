@@ -38,6 +38,7 @@ public class Login extends AppCompatActivity {
                         Intent intent = new Intent(Login.this, LoadResturants.class);
                         intent.putExtra("Email" , usernameEditText.getText().toString());
                         startActivity(intent);
+                        finish();
                     }
                 } else if (passwordEditText.getText().toString() == null ||
                         !usernameEditText.getText().toString().contains("@")) {
@@ -54,6 +55,7 @@ public class Login extends AppCompatActivity {
         Intent intent = new Intent(this, Register.class);
         intent.putExtra("Email" , usernameEditText.getText().toString());
         startActivity(intent);
+        finish();
     }
 
     // to send the owner to his resturant

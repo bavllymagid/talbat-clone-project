@@ -38,6 +38,7 @@ public class Register_customer extends AppCompatActivity {
                                 , phone.getText().toString(), address.getText().toString(),null,"0")) {
                             Intent intent = new Intent(Register_customer.this , Login.class);
                             startActivity(intent);
+                            finish();
                             Toast.makeText(getApplicationContext(), "registration succeeded ", Toast.LENGTH_SHORT).show();
                         }
                     }else Toast.makeText(getApplicationContext(), "The Email is already found" ,Toast.LENGTH_SHORT).show();

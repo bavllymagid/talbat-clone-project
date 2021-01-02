@@ -62,6 +62,7 @@ public class RegisterRestaurantOwner extends AppCompatActivity {
                         Intent intent = new Intent(RegisterRestaurantOwner.this, Login.class);
                         Toast.makeText(getApplicationContext(), "Registered successfully", Toast.LENGTH_SHORT).show();
                         startActivity(intent);
+                        finish();
                     } else
                         Toast.makeText(getApplicationContext(), "The Email is already found", Toast.LENGTH_SHORT).show();
                 }else Toast.makeText(getApplicationContext(), "Enter valid Input" ,Toast.LENGTH_SHORT).show();

@@ -23,7 +23,7 @@ public class AddMeal extends AppCompatActivity {
 
     private EditText editMealName, editMealPrice,editMealDescription;
     private Button btnConfirm;
-    private ImageButton pickImag;
+    private ImageButton pickImage;
 
     private byte[] image = null;
     private ResturantDb db;
@@ -39,7 +39,7 @@ public class AddMeal extends AppCompatActivity {
         editMealDescription = (EditText) findViewById(R.id.editMealDescription);
         editMealPrice = (EditText) findViewById(R.id.editMealPrice);
         btnConfirm = (Button) findViewById(R.id.btnConfirm);
-        pickImag = (ImageButton) findViewById(R.id.pickImg);
+        pickImage = (ImageButton) findViewById(R.id.pickImg);
 
 
         btnConfirm.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +57,7 @@ public class AddMeal extends AppCompatActivity {
                     MealPrice = Integer.parseInt(editMealPrice.getText().toString());
                 }
 
-                BitmapDrawable drawable = (BitmapDrawable) pickImag.getDrawable();
+                BitmapDrawable drawable = (BitmapDrawable) pickImage.getDrawable();
                 Bitmap bitmap = drawable.getBitmap();
                 image = getBytes(bitmap);
 
@@ -92,7 +92,7 @@ public class AddMeal extends AppCompatActivity {
             try {
                 InputStream inputStream = getContentResolver().openInputStream(uri);
                 Bitmap decodeStream = BitmapFactory.decodeStream(inputStream);
-                pickImag.setImageBitmap(decodeStream);
+                pickImage.setImageBitmap(decodeStream);
 
                 image = getBytes(decodeStream);
 

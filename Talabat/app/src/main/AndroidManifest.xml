@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="project.java4.talabat">
+    package="project.java4.talabat"
+    android:icon="@drawable/ic_launcher_foreground"
+    android:roundIcon="@mipmap/ic_launcher_round">
 
     <application
         android:allowBackup="true"
