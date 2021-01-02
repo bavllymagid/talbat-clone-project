@@ -21,11 +21,17 @@ import java.io.InputStream;
 
 public class AddMeal extends AppCompatActivity {
 
-    private EditText editMealName, editMealPrice,editMealDescription;
+    private EditText editMealName, editMealPrice, editMealDescription;
     private Button btnConfirm;
     private ImageButton pickImage;
 
+    /**
+     * waiting for bavlly to explain
+     */
     private byte[] image = null;
+    /**
+     * restaurants database
+     */
     private ResturantDb db;
 
     @Override
@@ -35,11 +41,13 @@ public class AddMeal extends AppCompatActivity {
 
         db = new ResturantDb(this);
 
+
         editMealName = (EditText) findViewById(R.id.editMealName);
         editMealDescription = (EditText) findViewById(R.id.editMealDescription);
         editMealPrice = (EditText) findViewById(R.id.editMealPrice);
         btnConfirm = (Button) findViewById(R.id.btnConfirm);
         pickImage = (ImageButton) findViewById(R.id.pickImg);
+
 
 
         btnConfirm.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +70,7 @@ public class AddMeal extends AppCompatActivity {
                 image = getBytes(bitmap);
 
 
-                Meal meal = new Meal(MealName,MealDescription, MealPrice, image,restaurantName);
+                Meal meal = new Meal(MealName, MealDescription, MealPrice, image, restaurantName);
 
                 db.addMeal(meal);
 
@@ -73,7 +81,11 @@ public class AddMeal extends AppCompatActivity {
 
     }
 
-    // to get the image from gallery
+    /**
+     * to get the image from gallery
+     *
+     * @param view takes image button view
+     */
     public void openGalleries(View view) {
         Intent intentImg = new Intent(Intent.ACTION_GET_CONTENT);
         intentImg.setType("image/*");
@@ -81,6 +93,9 @@ public class AddMeal extends AppCompatActivity {
 
     }
 
+    /**
+     * waiting for bavlly to explain
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -103,6 +118,9 @@ public class AddMeal extends AppCompatActivity {
         }
     }
 
+    /**
+     * waiting for bavlly to explain
+     */
     public static byte[] getBytes(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);

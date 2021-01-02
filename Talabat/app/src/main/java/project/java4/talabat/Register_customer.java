@@ -21,11 +21,11 @@ public class Register_customer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_customer);
 
-        name = findViewById(R.id.textname);
-        email = findViewById(R.id.textemail);
-        password = findViewById(R.id.textpassword);
-        phone = findViewById(R.id.textphone);
-        address = findViewById(R.id.textadress);
+        name = findViewById(R.id.textName);
+        email = findViewById(R.id.textEmail);
+        password = findViewById(R.id.textPassword);
+        phone = findViewById(R.id.textPhone);
+        address = findViewById(R.id.textAddress);
         registerButton = findViewById(R.id.registerButton);
 
 

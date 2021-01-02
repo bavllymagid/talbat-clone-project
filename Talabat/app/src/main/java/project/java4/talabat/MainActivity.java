@@ -34,8 +34,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 3000);
     }
-    
-   // log in button function
+
+    /**
+     * opens login layout
+     */
     public void loggingIn(View view){
         Intent intent = new Intent(this,Login.class);
         startActivity(intent);

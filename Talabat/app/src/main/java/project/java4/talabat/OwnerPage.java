@@ -23,26 +23,32 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
-public class OwnerPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,SearchView.OnQueryTextListener {
+public class OwnerPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
 
     private ListView contactList;
     private Button btnAdd;
     private ResturantDb db;
     private TextView numberOfItems;
     private TextView itemsPrice;
+    private MealAdapter mealAdapter;
+    private Order order;
 
-    //for toolbar
+    /**
+     * declaration of drawer side bar
+     */
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView nav_view;
-    private MealAdapter mealAdapter;
 
-    // for customer
+
+    /**
+     * to check if the layout is opened by a customer
+     */
     boolean isCustomer;
     int numberOfItems_ = 0;
     double itemsPrice_ = 0.0f;
-    private Order order ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +57,14 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
         isCustomer = getIntent().getStringExtra("customer").equals("0");
         db = new ResturantDb(this);
 
-        contactList = (ListView) findViewById(R.id.contactList);
-        btnAdd = (Button) findViewById(R.id.btnAdd);
+        contactList = findViewById(R.id.contactList);
+        btnAdd = findViewById(R.id.btnAdd);
         numberOfItems = findViewById(R.id.numberOfItems);
         itemsPrice = findViewById(R.id.itemsPrice);
         nav_view = findViewById(R.id.nav_view);
         nav_view.setNavigationItemSelectedListener(this);
 
-
+        // to set the view for the restaurant owner
         if (!isCustomer) {
 
             btnAdd.setText("Add Meal");
@@ -72,8 +78,8 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
                 public void onClick(View v) {
 
                     Intent intent = new Intent(OwnerPage.this, AddMeal.class);
-                    String ownerResturant = getIntent().getStringExtra("returantName");
-                    intent.putExtra("resName", ownerResturant);
+                    String ownerRestaurant = getIntent().getStringExtra("restaurantName");
+                    intent.putExtra("resName", ownerRestaurant);
                     startActivity(intent);
 
                 }
@@ -93,7 +99,9 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
 
                 }
             });
-        } else {
+        }
+        // to set the view for the customer
+        else {
 
             btnAdd.setText("Order now");
             nav_view.getMenu().clear();
@@ -112,7 +120,7 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
                     numberOfItems.setText("0");
                     // to reset actual value
                     itemsPrice_ = 0;
-                    numberOfItems_= 0;
+                    numberOfItems_ = 0;
                 }
             });
 
@@ -120,8 +128,8 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Meal selected_meal = (Meal) parent.getItemAtPosition(position);
-                    order = new Order(getIntent().getStringExtra("Email1") , selected_meal.getMealName()
-                    ,selected_meal.getMealPrice(),selected_meal.getImage(),getIntent().getStringExtra("res_name")) ;
+                    order = new Order(getIntent().getStringExtra("Email1"), selected_meal.getMealName()
+                            , selected_meal.getMealPrice(), selected_meal.getImage(), getIntent().getStringExtra("res_name"));
                     itemsPrice_ += selected_meal.getMealPrice();
                     numberOfItems_++;
                     itemsPrice.setText(itemsPrice_ + "");
@@ -137,14 +145,17 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
-
         drawer.addDrawerListener(toggle);
+
         //to save the state of drawer
         toggle.syncState();
 
 
     }
 
+    /**
+     * for when going back in the work flow (previous activity for example)
+     */
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -158,13 +169,13 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
         super.onResume();
 
         ArrayList<Meal> meals;
-        // to get the name of the resturant from owner page and login page to the list
-        String resturant_name = getIntent().getStringExtra("res_name");
-        String ownerResturant = getIntent().getStringExtra("returantName");
-        if (ownerResturant != null) {
-            meals = db.getAllMeals(ownerResturant);
+        // to get the name of the restaurant from owner page and login page to the list
+        String restaurant_name = getIntent().getStringExtra("res_name");
+        String ownerRestaurant = getIntent().getStringExtra("restaurantName");
+        if (ownerRestaurant != null) {
+            meals = db.getAllMeals(ownerRestaurant);
         } else {
-            meals = db.getAllMeals(resturant_name);
+            meals = db.getAllMeals(restaurant_name);
         }
 
         mealAdapter = new MealAdapter(this, R.layout.meal_data, meals);
@@ -174,6 +185,12 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
         drawer.close();
     }
 
+    /**
+     * checks for selected items on the drawer
+     *
+     * @param item the selected item
+     * @return the state of the selected item
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Intent intent;
@@ -182,24 +199,26 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
                 intent = new Intent(this, OrderActivity.class);
                 if (isCustomer) {
                     intent.putExtra("customer", "0");
-                    intent.putExtra("Email2",getIntent().getStringExtra("Email1"));
-                }
-                else {
+                    intent.putExtra("Email2", getIntent().getStringExtra("Email1"));
+                } else {
                     intent.putExtra("customer", "1");
-                    String ownerResturant = getIntent().getStringExtra("returantName");
-                    intent.putExtra("resName", ownerResturant);
+                    String ownerRestaurant = getIntent().getStringExtra("restaurantName");
+                    intent.putExtra("resName", ownerRestaurant);
                 }
 
                 startActivity(intent);
                 break;
             case R.id.logout:
-                intent = new Intent(this , Login.class);
+                intent = new Intent(this, Login.class);
                 startActivity(intent);
                 break;
         }
         return true;
     }
 
+    /**
+     * to add search view to toolbar
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search, menu);
@@ -210,6 +229,9 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
         return true;
     }
 
+    /**
+     * for search view and search algorithm
+     */
     @Override
     public boolean onQueryTextSubmit(String newText) {
         mealAdapter.getFilter().filter(newText);

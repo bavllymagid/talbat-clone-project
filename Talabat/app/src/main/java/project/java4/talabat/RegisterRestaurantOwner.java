@@ -25,20 +25,20 @@ public class RegisterRestaurantOwner extends AppCompatActivity {
     private ResturantDb db = new ResturantDb(this);
     private PersonDb personDb = new PersonDb(this);
     private ImageButton pickImage;
-    private EditText name , password , email , resturant_name;
-    private Button add ;
+    private EditText name, password, email, restaurant_name;
+    private Button add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_restaurant_owner);
 
-        name = (EditText) findViewById(R.id.textname);
-        email = (EditText) findViewById(R.id.textemail);
-        password = (EditText) findViewById(R.id.textpassword);
-        resturant_name = (EditText) findViewById(R.id.restaurantName);
-        add = (Button) findViewById(R.id.registerButton);
-        pickImage = (ImageButton) findViewById(R.id.pickImg);
+        name = findViewById(R.id.textName);
+        email = findViewById(R.id.textEmail);
+        password = findViewById(R.id.textPassword);
+        restaurant_name = findViewById(R.id.restaurantName);
+        add = findViewById(R.id.registerButton);
+        pickImage = findViewById(R.id.pickImg);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,23 +49,23 @@ public class RegisterRestaurantOwner extends AppCompatActivity {
                         String ownerEmail = email.getText().toString();
                         String ownerPassword = password.getText().toString();
 
-                        String resturantName = resturant_name.getText().toString();
-                        System.out.println(ownerEmail + ownerName + ownerPassword + resturantName + "\n\n\n\n\n\n\n\n\n\n");
+                        String restaurantName = restaurant_name.getText().toString();
+                        System.out.println(ownerEmail + ownerName + ownerPassword + restaurantName + "\n\n\n\n\n\n\n\n\n\n");
 
                         BitmapDrawable drawable = (BitmapDrawable) pickImage.getDrawable();
                         Bitmap bitmap = drawable.getBitmap();
                         image = getBytes(bitmap);
 
-                        Resturant resturant = new Resturant(image, resturantName);
+                        Resturant resturant = new Resturant(image, restaurantName);
                         db.addResturant(resturant);
-                        personDb.createNewEmail(ownerName, ownerEmail, ownerPassword, "null ", "null", resturantName, "1");
+                        personDb.createNewEmail(ownerName, ownerEmail, ownerPassword, "null ", "null", restaurantName, "1");
                         Intent intent = new Intent(RegisterRestaurantOwner.this, Login.class);
                         Toast.makeText(getApplicationContext(), "Registered successfully", Toast.LENGTH_SHORT).show();
                         startActivity(intent);
                         finish();
                     } else
                         Toast.makeText(getApplicationContext(), "The Email is already found", Toast.LENGTH_SHORT).show();
-                }else Toast.makeText(getApplicationContext(), "Enter valid Input" ,Toast.LENGTH_SHORT).show();
+                } else Toast.makeText(getApplicationContext(), "Enter valid Input", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -20,11 +20,14 @@ import java.util.List;
 
 
 public class MealAdapter extends ArrayAdapter<Meal> implements Filterable {
-
-    private ArrayList<Meal> mealsList;
-    private ArrayList<Meal> allMealsList;
     Context context;
     int resource;
+
+    /**
+     * for meal search
+     */
+    private ArrayList<Meal> mealsList;
+    private ArrayList<Meal> allMealsList;
 
     public MealAdapter(@NonNull Context context, int resource, @NonNull List<Meal> objects) {
         super(context, resource, objects);
@@ -35,29 +38,31 @@ public class MealAdapter extends ArrayAdapter<Meal> implements Filterable {
         this.allMealsList.addAll(mealsList);
     }
 
+    /**
+     * waiting for bavlly to explain
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        convertView = LayoutInflater.from(context).inflate(resource, parent, false  );
+        convertView = LayoutInflater.from(context).inflate(resource, parent, false);
 
-        TextView mealName = (TextView)convertView.findViewById(R.id.mealName);
-        TextView mealDescription = (TextView)convertView.findViewById(R.id.mealDescription);
-        TextView mealPrice = (TextView)convertView.findViewById(R.id.mealPrice);
-        ImageView imgUser = (ImageView) convertView.findViewById(R.id.imgUser);
-
+        TextView mealName = convertView.findViewById(R.id.mealName);
+        TextView mealDescription = convertView.findViewById(R.id.mealDescription);
+        TextView mealPrice = convertView.findViewById(R.id.mealPrice);
+        ImageView imgUser = convertView.findViewById(R.id.imgUser);
 
 
         Meal currentMeal = getItem(position);
 
         mealName.setText(currentMeal.getMealName());
         mealDescription.setText(currentMeal.getMealDescription());
-//        mealPrice.setText(String.valueOf(currentContact.getPhone()));
+        // mealPrice.setText(String.valueOf(currentContact.getPhone()));
 
-        if ( currentMeal.getMealPrice() ==0){
+        if (currentMeal.getMealPrice() == 0) {
             mealPrice.setText("$");
-        }else {
-            mealPrice.setText(String.valueOf(currentMeal.getMealPrice())+"$");
+        } else {
+            mealPrice.setText(currentMeal.getMealPrice() + "$");
         }
 
 
@@ -68,7 +73,8 @@ public class MealAdapter extends ArrayAdapter<Meal> implements Filterable {
         return convertView;
     }
 
-    /* search algorithm */ /////////////////////
+    /** search algorithm
+     */
     @Override
     public Filter getFilter() {
         return new MealAdapter.mealFilter();
@@ -95,7 +101,8 @@ public class MealAdapter extends ArrayAdapter<Meal> implements Filterable {
             return results;
         }
 
-        // clear the old list and display the new one
+        /** clear the old list and display the new one
+         */
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             mealsList.clear();

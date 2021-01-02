@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="100dp">
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
 
 
     <ImageView
-        android:id="@+id/imgUser"
-        android:layout_width="100dp"
-        android:layout_height="match_parent"
-        android:background="@drawable/logo"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/logo" />
+            android:id="@+id/imgUser"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/logo"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/logo" android:contentDescription="@string/todo"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center">
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center">
 
         <TextView
-            android:id="@+id/mealName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingLeft="5dp"
-            android:paddingTop="5dp"
-            android:text="Meal Name"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/mealName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                android:text="@string/meal_name"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:id="@+id/mealDescription"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:gravity="center"
-            android:maxLength="60"
-            android:paddingLeft="5dp"
-            android:paddingTop="5dp"
-            android:text="Meal Description"
-            android:textAlignment="textStart"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/mealPrice"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mealName" />
+                android:id="@+id/mealDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:gravity="center"
+                android:maxLength="60"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                android:text="@string/meal_description"
+                android:textAlignment="textStart"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/mealPrice"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mealName"/>
 
         <TextView
-            android:id="@+id/mealPrice"
-            android:layout_width="94.5dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="Meal Price"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/mealPrice"
+                android:layout_width="94.5dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/meal_price"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
