@@ -102,11 +102,9 @@ public class LoadRestaurants extends AppCompatActivity implements RestaurantAdap
         //to save the state of drawer
         toggle.syncState();
 
-
         recyclerView = findViewById(R.id.recyclerview);
         layoutManager = new LinearLayoutManager(this);
         emailView.setText(getIntent().getStringExtra("Email"));
-
     }
 
     /**

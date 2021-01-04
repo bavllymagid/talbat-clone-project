@@ -78,4 +78,12 @@ public class Login extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * when pressing back from login
+     */
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+    }
+
 }
