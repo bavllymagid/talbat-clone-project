@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -24,6 +25,7 @@ public class OrderActivity extends AppCompatActivity implements NavigationView.O
     private ActionBarDrawerToggle toggle;
     private NavigationView nav_view;
     private Toolbar toolbar;
+    private TextView emailView;
 
     /**
      * to check if the layout is opened by a customer
@@ -47,9 +49,11 @@ public class OrderActivity extends AppCompatActivity implements NavigationView.O
         drawer = findViewById(R.id.drawer_layout);
         nav_view = findViewById(R.id.nav_view);
         nav_view.setNavigationItemSelectedListener(this);
+        emailView = nav_view.getHeaderView(0).findViewById(R.id.username);
         if (isCustomer) {
             nav_view.getMenu().clear();
             nav_view.inflateMenu(R.menu.drawer_menu_customer);
+
         } else {
             nav_view.getMenu().clear();
             nav_view.inflateMenu(R.menu.drawer_menu_restaurant);
@@ -83,10 +87,13 @@ public class OrderActivity extends AppCompatActivity implements NavigationView.O
         String loadToOwner = getIntent().getStringExtra("Email1");
         if (customerOrders != null) {
             orders = resturantDb.getAllCustomerOrders(customerOrders);
+            emailView.setText(customerOrders);
         } else if (ownerOrders != null) {
             orders = resturantDb.getAllRestaurantOrders(ownerOrders);
+            emailView.setText(ownerOrders);
         } else {
             orders = resturantDb.getAllCustomerOrders(loadToOwner);
+            emailView.setText(loadToOwner);
         }
 
         OrdersAdapter orderAdapter = new OrdersAdapter(this, R.layout.order_data, orders);
@@ -110,6 +117,7 @@ public class OrderActivity extends AppCompatActivity implements NavigationView.O
             case R.id.logout:
                 intent = new Intent(this, Login.class);
                 startActivity(intent);
+                finish();
                 break;
         }
         return true;

@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -36,6 +37,7 @@ public class LoadRestaurants extends AppCompatActivity implements RestaurantAdap
     private ActionBarDrawerToggle toggle;
     private NavigationView nav_view;
     private Toolbar toolbar;
+    private TextView emailView ;
 
     /**
      * restaurants and users databases
@@ -91,6 +93,7 @@ public class LoadRestaurants extends AppCompatActivity implements RestaurantAdap
         nav_view = findViewById(R.id.nav_view);
         nav_view.setNavigationItemSelectedListener(this);
         nav_view.setCheckedItem(R.id.home_nav);
+        emailView = nav_view.getHeaderView(0).findViewById(R.id.username);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
@@ -102,6 +105,8 @@ public class LoadRestaurants extends AppCompatActivity implements RestaurantAdap
 
         recyclerView = findViewById(R.id.recyclerview);
         layoutManager = new LinearLayoutManager(this);
+        emailView.setText(getIntent().getStringExtra("Email"));
+
     }
 
     /**
@@ -123,6 +128,7 @@ public class LoadRestaurants extends AppCompatActivity implements RestaurantAdap
             case R.id.logout:
                 intent = new Intent(this, Login.class);
                 startActivity(intent);
+                finish();
                 break;
         }
         return true;

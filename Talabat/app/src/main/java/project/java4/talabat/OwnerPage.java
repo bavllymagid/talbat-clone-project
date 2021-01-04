@@ -40,7 +40,7 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView nav_view;
-
+    private TextView emailView;
 
     /**
      * to check if the layout is opened by a customer
@@ -64,6 +64,9 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
         nav_view = findViewById(R.id.nav_view);
         nav_view.setNavigationItemSelectedListener(this);
 
+        emailView = nav_view.getHeaderView(0).findViewById(R.id.username);
+
+
         // to set the view for the restaurant owner
         if (!isCustomer) {
 
@@ -73,6 +76,7 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
             nav_view.setCheckedItem(R.id.home_nav);
             itemsPrice.setVisibility(View.GONE);
             numberOfItems.setVisibility(View.GONE);
+            emailView.setText(getIntent().getStringExtra("restaurantName"));
             btnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -110,6 +114,7 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
 
             itemsPrice.setVisibility(View.VISIBLE);
             numberOfItems.setVisibility(View.VISIBLE);
+            emailView.setText(getIntent().getStringExtra("Email1"));
 
             btnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -205,12 +210,12 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
                     String ownerRestaurant = getIntent().getStringExtra("restaurantName");
                     intent.putExtra("resName", ownerRestaurant);
                 }
-
                 startActivity(intent);
                 break;
             case R.id.logout:
                 intent = new Intent(this, Login.class);
                 startActivity(intent);
+                finish();
                 break;
         }
         return true;
