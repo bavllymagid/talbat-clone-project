@@ -35,6 +35,8 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         convertView = LayoutInflater.from(context).inflate(resource, parent, false  );
 
         TextView orderName = (TextView)convertView.findViewById(R.id.orderData);
+        TextView orderQuantity = (TextView) convertView.findViewById(R.id.orderQuantity);
+        TextView orderDate = (TextView) convertView.findViewById(R.id.orderDate);
         TextView orderPrice = (TextView)convertView.findViewById(R.id.mealPrice);
         ImageView imgUser = (ImageView) convertView.findViewById(R.id.mealImage);
 
@@ -43,6 +45,8 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         Order currentOrder = getItem(position);
 
         orderName.setText(currentOrder.getMealName());
+        orderDate.setText(currentOrder.getDate());
+        orderQuantity.setText("Quantity: " + currentOrder.getQuantity());
 
         if ( currentOrder.getMealPrice() ==0){
             orderPrice.setText("$");

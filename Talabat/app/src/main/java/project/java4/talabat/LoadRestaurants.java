@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 
 public class LoadRestaurants extends AppCompatActivity implements RestaurantAdapter.OnResListener, SearchView.OnQueryTextListener, NavigationView.OnNavigationItemSelectedListener {
+
     /**
      * declaration of recycler view
      */

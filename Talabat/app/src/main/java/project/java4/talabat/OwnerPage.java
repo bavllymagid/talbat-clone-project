@@ -21,7 +21,12 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Vector;
 
 public class OwnerPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
 
@@ -31,6 +36,7 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
     private TextView numberOfItems;
     private TextView itemsPrice;
     private MealAdapter mealAdapter;
+    private Vector<Order> orders = new Vector<Order>();
     private Order order;
 
     /**
@@ -126,6 +132,11 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
                     // to reset actual value
                     itemsPrice_ = 0;
                     numberOfItems_ = 0;
+
+                    for (Order Order : orders) {
+                        db.addOrder(Order);
+                    }
+                    orders.clear();
                 }
             });
 
@@ -133,23 +144,49 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Meal selected_meal = (Meal) parent.getItemAtPosition(position);
-                    order = new Order(getIntent().getStringExtra("Email1"), selected_meal.getMealName()
-                            , selected_meal.getMealPrice(), selected_meal.getImage(), getIntent().getStringExtra("res_name"));
                     itemsPrice_ += selected_meal.getMealPrice();
                     numberOfItems_++;
                     itemsPrice.setText(itemsPrice_ + "");
                     numberOfItems.setText(numberOfItems_ + "");
-                    db.addOrder(order);
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
+                    String currentDate = new SimpleDateFormat("dd-MM-yyyy",Locale.getDefault()).format(new Date());
+                    order = new Order(getIntent().getStringExtra("Email1"), selected_meal.getMealName()
+                            , selected_meal.getMealPrice(), 1,currentDate ,selected_meal.getImage(), getIntent().getStringExtra("res_name"));
+
+                    boolean isFound = false;
+                    if (orders.size() != 0) {
+                        for (Order Order : orders) {
+                            if (Order.getMealName().equals(order.getMealName())) {
+                                isFound = true;
+                                Order.setQuantity(Order.getQuantity() + 1);
+                            }
+                        }
+                        if(!isFound)
+                        orders.addElement(order);
+                    } else {
+                        orders.addElement(order);
+                    }
+
+
                 }
             });
         }
 
 
         //initialization of drawer
-        drawer = findViewById(R.id.drawer_layout);
-        toolbar = findViewById(R.id.toolbar);
+        drawer =
+
+                findViewById(R.id.drawer_layout);
+
+        toolbar =
+
+                findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
-        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
+
+        toggle = new
+
+                ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
         drawer.addDrawerListener(toggle);
 
         //to save the state of drawer

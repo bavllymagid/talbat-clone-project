@@ -35,10 +35,11 @@ public class ResturantDb extends SQLiteOpenHelper {
     private static final String ordersTable = "orders";
     private static final String orderMealName = "mealName";
     private static final String Resturant_name = "Res_name";
-    private static final String orderEmail = "orderEmail" ;
-    private static final String orderImg = "orderImg" ;
-    private static final String orderMealPrice = "orderPrice" ;
-
+    private static final String orderEmail = "orderEmail";
+    private static final String orderImg = "orderImg";
+    private static final String orderMealPrice = "orderPrice";
+    private static final String orderMealQuantity = "orderQuantity";
+    private static final String orderDate = "orderDate";
 
     public ResturantDb(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -56,11 +57,11 @@ public class ResturantDb extends SQLiteOpenHelper {
                 + KEY_MealName + " varchar(255) DEFAULT'',"
                 + KEY_MealDescription + " varchar(255) DEFAULT'',"
                 + KEY_MealPrice + " integer ,"
-                + KEY_IMG + " blob,"+Res_name +" varchar(250))";
+                + KEY_IMG + " blob," + Res_name + " varchar(250))";
 
         //intializing the orders
-        String orders_table = "create table " + ordersTable + "(" + orderEmail +" varchar(255) ,"
-                +Resturant_name+" varchar(255),"+orderMealName+" varchar(255),"+orderMealPrice+" varchar(255),"+orderImg+" blob)";
+        String orders_table = "create table " + ordersTable + "(" + orderEmail + " varchar(255) ,"
+                + Resturant_name + " varchar(255)," + orderMealName + " varchar(255)," + orderMealPrice + " varchar(255)," + orderMealQuantity + " varchar(255)," + orderDate + " varchar(255)," + orderImg + " blob)";
 
         db.execSQL(Resturant_table);
         db.execSQL(Meals_table);
@@ -94,7 +95,7 @@ public class ResturantDb extends SQLiteOpenHelper {
                 String resturantName = cursor.getString(cursor.getColumnIndex(KEY_ResturantName));
                 byte[] image = cursor.getBlob(cursor.getColumnIndex(ResKEY_IMG));
 
-                Resturant resturant = new Resturant(image,resturantName);
+                Resturant resturant = new Resturant(image, resturantName);
 
                 Resturants.add(resturant);
 
@@ -104,6 +105,7 @@ public class ResturantDb extends SQLiteOpenHelper {
 
         return Resturants;
     }
+
     // to add meal to the resturant
     public void addMeal(Meal meal) {
 
@@ -126,9 +128,9 @@ public class ResturantDb extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_ResturantName, resturant.getName());
-        values.put(ResKEY_IMG , resturant.getImageResource());
+        values.put(ResKEY_IMG, resturant.getImageResource());
 
-        db.insert( TABLE_Resturant_Data , null, values);
+        db.insert(TABLE_Resturant_Data, null, values);
     }
 
     public ArrayList<Meal> getAllMeals(String resturantName) {
@@ -141,7 +143,7 @@ public class ResturantDb extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                if(resturantName.equals(cursor.getString(cursor.getColumnIndex(Res_name)))) {
+                if (resturantName.equals(cursor.getString(cursor.getColumnIndex(Res_name)))) {
                     int id = cursor.getInt(cursor.getColumnIndex(KEY_ID));
                     String MealName = cursor.getString(cursor.getColumnIndex(KEY_MealName));
                     String MealDescription = cursor.getString(cursor.getColumnIndex(KEY_MealDescription));
@@ -166,7 +168,7 @@ public class ResturantDb extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_Meal_Data, new String[]{"id", "MealName","MealDescription", "MealPrice", "image"}, "id=?",
+        Cursor cursor = db.query(TABLE_Meal_Data, new String[]{"id", "MealName", "MealDescription", "MealPrice", "image"}, "id=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor.moveToFirst()) {
@@ -177,7 +179,7 @@ public class ResturantDb extends SQLiteOpenHelper {
             int MealPrice = cursor.getInt(cursor.getColumnIndex(KEY_MealPrice));
             byte[] image = cursor.getBlob(cursor.getColumnIndex(KEY_IMG));
 
-            meal = new Meal(id, MealName,MealDescription, MealPrice, image);
+            meal = new Meal(id, MealName, MealDescription, MealPrice, image);
 
         }
 
@@ -219,11 +221,13 @@ public class ResturantDb extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(orderMealName , order.getMealName());
-        values.put(orderEmail , order.getEmail());
-        values.put(orderImg , order.getImage());
-        values.put(Resturant_name , order.getRestaurantName());
-        values.put(orderMealPrice , order.getMealPrice());
+        values.put(orderMealName, order.getMealName());
+        values.put(orderEmail, order.getEmail());
+        values.put(orderImg, order.getImage());
+        values.put(Resturant_name, order.getRestaurantName());
+        values.put(orderMealPrice, order.getMealPrice());
+        values.put(orderMealQuantity, order.getQuantity());
+        values.put(orderDate, order.getDate());
         db.insert(ordersTable, null, values);
     }
 
@@ -238,14 +242,16 @@ public class ResturantDb extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                if(Email.equals(cursor.getString(cursor.getColumnIndex(orderEmail)))) {
+                if (Email.equals(cursor.getString(cursor.getColumnIndex(orderEmail)))) {
                     String email = cursor.getString(cursor.getColumnIndex(orderEmail));
                     String orderName = cursor.getString(cursor.getColumnIndex(orderMealName));
                     int orderPrice = cursor.getInt(cursor.getColumnIndex(orderMealPrice));
+                    int orderQuantity = cursor.getInt(cursor.getColumnIndex(orderMealQuantity));
+                    String orderdate = cursor.getString(cursor.getColumnIndex(orderDate));
                     byte[] image = cursor.getBlob(cursor.getColumnIndex(orderImg));
                     String resturantName = cursor.getString(cursor.getColumnIndex(Resturant_name));
 
-                    Order order = new Order(email , orderName , orderPrice , image , resturantName);
+                    Order order = new Order(email, orderName, orderPrice, orderQuantity, orderdate, image, resturantName);
 
                     orders.add(order);
                 }
@@ -266,14 +272,16 @@ public class ResturantDb extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                if(restaurantName.equals(cursor.getString(cursor.getColumnIndex(Resturant_name)))) {
+                if (restaurantName.equals(cursor.getString(cursor.getColumnIndex(Resturant_name)))) {
                     String email = cursor.getString(cursor.getColumnIndex(orderEmail));
                     String orderName = cursor.getString(cursor.getColumnIndex(orderMealName));
                     int orderPrice = cursor.getInt(cursor.getColumnIndex(orderMealPrice));
+                    int orderQuantity = cursor.getInt(cursor.getColumnIndex(orderMealQuantity));
+                    String orderdate = cursor.getString(cursor.getColumnIndex(orderDate));
                     byte[] image = cursor.getBlob(cursor.getColumnIndex(orderImg));
                     String resturantName = cursor.getString(cursor.getColumnIndex(Resturant_name));
 
-                    Order order = new Order(email , orderName , orderPrice , image , resturantName);
+                    Order order = new Order(email, orderName, orderPrice, orderQuantity, orderdate, image, resturantName);
 
                     orders.add(order);
                 }
