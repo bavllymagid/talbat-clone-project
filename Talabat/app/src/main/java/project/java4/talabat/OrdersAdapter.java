@@ -51,7 +51,7 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         if ( currentOrder.getMealPrice() ==0){
             orderPrice.setText("$");
         }else {
-            orderPrice.setText(String.valueOf(currentOrder.getMealPrice())+"$");
+            orderPrice.setText(String.valueOf(currentOrder.getMealPrice()* currentOrder.getQuantity())+"$");
         }
 
         Bitmap bitmap = BitmapFactory.decodeByteArray(currentOrder.getImage(), 0, currentOrder.getImage().length);

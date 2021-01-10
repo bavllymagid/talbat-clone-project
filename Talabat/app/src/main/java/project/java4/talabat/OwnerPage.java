@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -19,6 +20,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.text.SimpleDateFormat;
@@ -31,7 +34,9 @@ import java.util.Vector;
 public class OwnerPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
 
     private ListView contactList;
-    private Button btnAdd;
+    private Button orderBtn;
+    private FloatingActionButton fab;
+    private ConstraintLayout forCustomer;
     private ResturantDb db;
     private TextView numberOfItems;
     private TextView itemsPrice;
@@ -62,9 +67,10 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
         setContentView(R.layout.activity_owner_page);
         isCustomer = getIntent().getStringExtra("customer").equals("0");
         db = new ResturantDb(this);
-
+        forCustomer = findViewById(R.id.for_customer);
+        fab = findViewById(R.id.addMeal);
         contactList = findViewById(R.id.contactList);
-        btnAdd = findViewById(R.id.btnAdd);
+        orderBtn = findViewById(R.id.orderBtn);
         numberOfItems = findViewById(R.id.numberOfItems);
         itemsPrice = findViewById(R.id.itemsPrice);
         nav_view = findViewById(R.id.nav_view);
@@ -76,14 +82,8 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
         // to set the view for the restaurant owner
         if (!isCustomer) {
 
-            btnAdd.setText("Add Meal");
-            nav_view.getMenu().clear();
-            nav_view.inflateMenu(R.menu.drawer_menu_restaurant);
-            nav_view.setCheckedItem(R.id.home_nav);
-            itemsPrice.setVisibility(View.GONE);
-            numberOfItems.setVisibility(View.GONE);
             emailView.setText(getIntent().getStringExtra("restaurantName"));
-            btnAdd.setOnClickListener(new View.OnClickListener() {
+            fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -111,18 +111,20 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
             });
         }
         // to set the view for the customer
+
         else {
 
-            btnAdd.setText("Order now");
+
             nav_view.getMenu().clear();
             nav_view.inflateMenu(R.menu.drawer_menu_customer);
             nav_view.setCheckedItem(R.id.home_nav);
 
-            itemsPrice.setVisibility(View.VISIBLE);
-            numberOfItems.setVisibility(View.VISIBLE);
+           forCustomer.setVisibility(View.VISIBLE);
+            fab.setVisibility(View.GONE);
+
             emailView.setText(getIntent().getStringExtra("Email1"));
 
-            btnAdd.setOnClickListener(new View.OnClickListener() {
+            orderBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getApplicationContext(), "ordered", Toast.LENGTH_SHORT).show();
@@ -149,9 +151,9 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
                     itemsPrice.setText(itemsPrice_ + "");
                     numberOfItems.setText(numberOfItems_ + "");
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
-                    String currentDate = new SimpleDateFormat("dd-MM-yyyy",Locale.getDefault()).format(new Date());
+                    String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
                     order = new Order(getIntent().getStringExtra("Email1"), selected_meal.getMealName()
-                            , selected_meal.getMealPrice(), 1,currentDate ,selected_meal.getImage(), getIntent().getStringExtra("res_name"));
+                            , selected_meal.getMealPrice(), 1, currentDate, selected_meal.getImage(), getIntent().getStringExtra("res_name"));
 
                     boolean isFound = false;
                     if (orders.size() != 0) {
@@ -161,8 +163,8 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
                                 Order.setQuantity(Order.getQuantity() + 1);
                             }
                         }
-                        if(!isFound)
-                        orders.addElement(order);
+                        if (!isFound)
+                            orders.addElement(order);
                     } else {
                         orders.addElement(order);
                     }
@@ -174,19 +176,13 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
 
 
         //initialization of drawer
-        drawer =
+        drawer = findViewById(R.id.drawer_layout);
 
-                findViewById(R.id.drawer_layout);
-
-        toolbar =
-
-                findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
 
-        toggle = new
-
-                ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
+        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
         drawer.addDrawerListener(toggle);
 
         //to save the state of drawer
