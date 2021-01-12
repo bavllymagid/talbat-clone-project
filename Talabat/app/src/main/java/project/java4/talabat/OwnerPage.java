@@ -224,6 +224,12 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
 
         nav_view.setCheckedItem(R.id.home_nav);
         drawer.close();
+        if(OrderActivity.key==1 && isCustomer){
+            OrderActivity.key= 0;
+            finish();
+
+        }
+
     }
 
     /**
@@ -251,6 +257,10 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
             case R.id.logout:
                 intent = new Intent(this, Login.class);
                 startActivity(intent);
+                finish();
+                break;
+            case R.id.home_nav:
+                if(isCustomer)
                 finish();
                 break;
         }

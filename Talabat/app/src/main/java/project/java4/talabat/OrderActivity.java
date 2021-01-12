@@ -26,6 +26,7 @@ public class OrderActivity extends AppCompatActivity implements NavigationView.O
     private NavigationView nav_view;
     private Toolbar toolbar;
     private TextView emailView;
+    public static int key = 0 ;
 
     /**
      * to check if the layout is opened by a customer
@@ -112,6 +113,7 @@ public class OrderActivity extends AppCompatActivity implements NavigationView.O
         Intent intent;
         switch (item.getItemId()) {
             case R.id.home_nav:
+                key = 1 ;
                 finish();
                 break;
             case R.id.logout:
