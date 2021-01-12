@@ -81,6 +81,7 @@ public class ResturantDb extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+
     // get the resturants in the recycler view
     public ArrayList<Resturant> getAllResturants() {
         ArrayList<Resturant> Resturants = new ArrayList<>();

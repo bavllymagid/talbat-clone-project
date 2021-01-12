@@ -123,10 +123,12 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
             fab.setVisibility(View.GONE);
 
             emailView.setText(getIntent().getStringExtra("Email1"));
+            orderBtn.setVisibility(View.INVISIBLE);
 
             orderBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    orderBtn.setVisibility(View.INVISIBLE);
                     Toast.makeText(getApplicationContext(), "ordered", Toast.LENGTH_SHORT).show();
                     //to reset gui
                     itemsPrice.setText("0");
@@ -145,6 +147,7 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
             contactList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    orderBtn.setVisibility(View.VISIBLE);
                     Meal selected_meal = (Meal) parent.getItemAtPosition(position);
                     itemsPrice_ += selected_meal.getMealPrice();
                     numberOfItems_++;

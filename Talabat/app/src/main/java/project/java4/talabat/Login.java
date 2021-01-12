@@ -34,11 +34,14 @@ public class Login extends AppCompatActivity {
         ePersonDb = new PersonDb(this);
 
 
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String tempuser = ePersonDb.md5(usernameEditText.getText().toString());
+                final String password = ePersonDb.md5(passwordEditText.getText().toString()+tempuser);
                 //searching for the validity of the email
-                if (ePersonDb.searchEmail(usernameEditText.getText().toString()) && ePersonDb.searchPassword(passwordEditText.getText().toString())) {
+                if (ePersonDb.searchEmail(usernameEditText.getText().toString()) && ePersonDb.searchPassword(password)) {
                     // to send the owner to owner page
                     if (!ePersonDb.searchState(usernameEditText.getText().toString())) {
                         sendRestaurant(v);
@@ -85,5 +88,4 @@ public class Login extends AppCompatActivity {
     public void onBackPressed() {
         finishAffinity();
     }
-
 }

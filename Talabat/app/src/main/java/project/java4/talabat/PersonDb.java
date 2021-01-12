@@ -6,7 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+
 import androidx.annotation.Nullable;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 
 public class PersonDb extends SQLiteOpenHelper {
     public static String databaseName = "emails";
@@ -29,9 +34,38 @@ public class PersonDb extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     * for the data encryption
+     */
+
+    public String md5(String s) {
+        String MD5 = "MD5";
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest
+                    .getInstance(MD5);
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+            // Create Hex String
+            StringBuilder hexString = new StringBuilder();
+            for (byte aMessageDigest : messageDigest) {
+                String h = Integer.toHexString(0xFF & aMessageDigest);
+                while (h.length() < 2)
+                    h = "0" + h;
+                hexString.append(h);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     /// adding data to the table
     public boolean createNewEmail(String name, String email, String password, String phone, String address, String restaurantName, String key) {
         ContentValues row = new ContentValues();
+        String salt = md5(email);
+        password = md5(password + salt);
         row.put("name", name);
         row.put("email", email);
         row.put("password", password);
