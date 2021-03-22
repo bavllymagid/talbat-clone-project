@@ -68,7 +68,6 @@ public class Login_Activity extends AppCompatActivity {
         Intent intent = new Intent(this, Register_Activity.class);
         intent.putExtra("Email", usernameEditText.getText().toString());
         startActivity(intent);
-        finish();
     }
 
     /**
