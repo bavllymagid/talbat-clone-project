@@ -177,7 +177,6 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
             });
         }
 
-
         //initialization of drawer
         drawer = findViewById(R.id.drawer_layout);
 
@@ -190,8 +189,6 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
 
         //to save the state of drawer
         toggle.syncState();
-
-
     }
 
     /**
@@ -227,7 +224,6 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
         if(OrderActivity.key==1 && isCustomer){
             OrderActivity.key= 0;
             finish();
-
         }
 
     }

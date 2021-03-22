@@ -7,11 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 
-import androidx.annotation.Nullable;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Random;
 
 public class PersonDb extends SQLiteOpenHelper {
     public static String databaseName = "emails";
@@ -37,7 +34,6 @@ public class PersonDb extends SQLiteOpenHelper {
     /**
      * for the data encryption
      */
-
     public String md5(String s) {
         String MD5 = "MD5";
         try {
@@ -61,17 +57,37 @@ public class PersonDb extends SQLiteOpenHelper {
         return "";
     }
 
-    /// adding data to the table
-    public boolean createNewEmail(String name, String email, String password, String phone, String address, String restaurantName, String key) {
+    /// adding data to the table related to customer
+    public boolean createNewEmail(Customer customer, String key) {
         ContentValues row = new ContentValues();
-        String salt = md5(email);
-        password = md5(password + salt);
-        row.put("name", name);
-        row.put("email", email);
-        row.put("password", password);
-        row.put("phone", phone);
-        row.put("address", address);
-        row.put("res_name", restaurantName);
+        String salt = md5(customer.getEmail());
+        customer.setPassword(md5(customer.getPassword() + salt));
+        row.put("name", customer.getName());
+        row.put("email", customer.getEmail());
+        row.put("password", customer.getPassword());
+        row.put("phone", customer.getPhoneNumber());
+        row.put("address", customer.getAddress());
+        row.put("res_name", "null");
+        row.put("key_d", key);
+
+        database = getWritableDatabase();
+        long result = database.insert("emails", null, row);
+        if (result == -1) {
+            return false;
+        } else return true;
+    }
+
+    /// adding data to the table related to owner
+    public boolean createNewEmail(RestaurantOwner restaurantOwner, String key) {
+        ContentValues row = new ContentValues();
+        String salt = md5(restaurantOwner.getEmail());
+        restaurantOwner.setPassword(md5(restaurantOwner.getPassword() + salt));
+        row.put("name", restaurantOwner.getName());
+        row.put("email", restaurantOwner.getEmail());
+        row.put("password", restaurantOwner.getPassword());
+        row.put("phone", "null");
+        row.put("address", "null");
+        row.put("res_name", restaurantOwner.getRestaurantName());
         row.put("key_d", key);
 
         database = getWritableDatabase();
@@ -89,6 +105,17 @@ public class PersonDb extends SQLiteOpenHelper {
             return true;
         }
         return false;
+    }
+
+    /// to search the data base for the logged in email and password
+    public String getName(String email) {
+        database = getWritableDatabase();
+        String name = new String();
+        Cursor cursor = database.rawQuery("select * from emails where email = '" + email + "'", null);
+        if(cursor.moveToFirst()){
+            name = cursor.getString(cursor.getColumnIndex("name"));
+        }
+        return name;
     }
 
     public boolean searchState(String email) {

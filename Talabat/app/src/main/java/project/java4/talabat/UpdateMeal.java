@@ -128,7 +128,7 @@ public class UpdateMeal extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // delete contact
-                        db.deletMeal(id);
+                        db.deleteMeal(id);
                         finish();
                     }
                 })

@@ -67,7 +67,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
         Bitmap bitmap = BitmapFactory.decodeByteArray(currentRestaurant.getImageResource(), 0, currentRestaurant.getImageResource().length);
         holder.imageView.setImageBitmap(bitmap);
         holder.textView1.setText(currentRestaurant.getName());
-
     }
   // to count the number of items
     @Override

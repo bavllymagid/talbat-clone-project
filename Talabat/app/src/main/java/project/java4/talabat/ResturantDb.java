@@ -203,7 +203,7 @@ public class ResturantDb extends SQLiteOpenHelper {
     }
 
 
-    public void deletMeal(int id) {
+    public void deleteMeal(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.delete(TABLE_Meal_Data, "id=?", new String[]{String.valueOf(id)});

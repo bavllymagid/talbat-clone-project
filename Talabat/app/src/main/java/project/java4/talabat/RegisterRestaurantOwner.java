@@ -43,22 +43,18 @@ public class RegisterRestaurantOwner extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isUserNameValid(email.getText().toString()) && isPasswordValid(password.getText().toString())) {
-                    if (!personDb.searchEmail(email.getText().toString())) {
-                        String ownerName = name.getText().toString();
-                        String ownerEmail = email.getText().toString();
-                        String ownerPassword = password.getText().toString();
+                RestaurantOwner restaurantOwner = new RestaurantOwner(name.getText().toString(), email.getText().toString(),
+                        password.getText().toString(), restaurant_name.getText().toString());
 
-                        String restaurantName = restaurant_name.getText().toString();
-                        System.out.println(ownerEmail + ownerName + ownerPassword + restaurantName + "\n\n\n\n\n\n\n\n\n\n");
-
+                if (isUserNameValid(restaurantOwner.getEmail()) && isPasswordValid(restaurantOwner.getPassword())) {
+                    if (!personDb.searchEmail(restaurantOwner.getEmail())) {
                         BitmapDrawable drawable = (BitmapDrawable) pickImage.getDrawable();
                         Bitmap bitmap = drawable.getBitmap();
                         image = getBytes(bitmap);
 
-                        Resturant resturant = new Resturant(image, restaurantName);
+                        Resturant resturant = new Resturant(image, restaurantOwner.getRestaurantName());
                         db.addResturant(resturant);
-                        personDb.createNewEmail(ownerName, ownerEmail, ownerPassword, "null ", "null", restaurantName, "1");
+                        personDb.createNewEmail(restaurantOwner , "1");
                         Intent intent = new Intent(RegisterRestaurantOwner.this, Login.class);
                         Toast.makeText(getApplicationContext(), "Registered successfully", Toast.LENGTH_SHORT).show();
                         startActivity(intent);

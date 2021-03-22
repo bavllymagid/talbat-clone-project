@@ -38,8 +38,8 @@ public class Login extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tempuser = ePersonDb.md5(usernameEditText.getText().toString());
-                final String password = ePersonDb.md5(passwordEditText.getText().toString()+tempuser);
+                String tempUser = ePersonDb.md5(usernameEditText.getText().toString());
+                final String password = ePersonDb.md5(passwordEditText.getText().toString()+tempUser);
                 //searching for the validity of the email
                 if (ePersonDb.searchEmail(usernameEditText.getText().toString()) && ePersonDb.searchPassword(password)) {
                     // to send the owner to owner page
@@ -77,7 +77,6 @@ public class Login extends AppCompatActivity {
         Intent intent = new Intent(this, OwnerPage.class);
         intent.putExtra("restaurantName", ePersonDb.getRestaurantName(usernameEditText.getText().toString()));
         intent.putExtra("customer", "1");
-        Toast.makeText(getApplicationContext(), ePersonDb.getRestaurantName(usernameEditText.getText().toString()), Toast.LENGTH_SHORT).show();
         startActivity(intent);
     }
 

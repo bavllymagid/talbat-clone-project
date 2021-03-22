@@ -29,13 +29,17 @@ public class Register_customer extends AppCompatActivity {
         registerButton = findViewById(R.id.registerButton);
 
 
+
+
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isUserNameValid(email.getText().toString()) && isPasswordValid(password.getText().toString())){
-                    if(!personDb.searchEmail(email.getText().toString())){
-                        if(personDb.createNewEmail(name.getText().toString(), email.getText().toString(), password.getText().toString()
-                                , phone.getText().toString(), address.getText().toString(),null,"0")) {
+                Customer customer = new Customer(name.getText().toString(), email.getText().toString(), password.getText().toString()
+                        , phone.getText().toString(), address.getText().toString());
+
+                if(isUserNameValid(customer.getEmail()) && isPasswordValid(customer.getPassword())){
+                    if(!personDb.searchEmail(customer.getEmail())){
+                        if(personDb.createNewEmail(customer,"0")) {
                             Intent intent = new Intent(Register_customer.this , Login.class);
                             startActivity(intent);
                             finish();

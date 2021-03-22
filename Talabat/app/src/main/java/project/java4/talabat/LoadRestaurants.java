@@ -143,7 +143,6 @@ public class LoadRestaurants extends AppCompatActivity implements RestaurantAdap
         intent.putExtra("res_name", restaurantList.get(position).getName());
         intent.putExtra("customer", "0");
         intent.putExtra("Email1", getIntent().getStringExtra("Email"));
-        Toast.makeText(getApplicationContext(), restaurantList.get(position).getName(), Toast.LENGTH_SHORT).show();
         startActivity(intent);
     }
 
