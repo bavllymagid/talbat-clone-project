@@ -1,8 +1,8 @@
-package project.java4.talabat;
+package project.java4.talabat.Classes;
 
 public class Customer extends User {
-    private String phoneNumber;
-    private String address;
+    private final String phoneNumber;
+    private final String address;
 
 
     public Customer(String name, String email, String password, String phoneNumber, String address) {

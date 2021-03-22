@@ -1,4 +1,4 @@
-package project.java4.talabat;
+package project.java4.talabat.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +8,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import project.java4.talabat.R;
 
-public class MainActivity extends AppCompatActivity {
+public class HomePage_Activity extends AppCompatActivity {
     private Button loginEntry;
     private TextView talabat;
     private View main ;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
      * opens login layout
      */
     public void loggingIn(View view){
-        Intent intent = new Intent(this,Login.class);
+        Intent intent = new Intent(this, Login_Activity.class);
         startActivity(intent);
         finish();
     }

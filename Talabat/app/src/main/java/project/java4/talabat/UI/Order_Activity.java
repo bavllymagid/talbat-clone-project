@@ -1,4 +1,4 @@
-package project.java4.talabat;
+package project.java4.talabat.UI;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -13,10 +13,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
+import project.java4.talabat.Adapters.OrdersAdapter;
+import project.java4.talabat.DataBases.RestaurantDb;
+import project.java4.talabat.Classes.Order;
+import project.java4.talabat.R;
 
 import java.util.ArrayList;
 
-public class OrderActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class Order_Activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     /**
      * declaration of drawer side bar
@@ -40,7 +44,7 @@ public class OrderActivity extends AppCompatActivity implements NavigationView.O
     /**
      * restaurants database
      */
-    ResturantDb resturantDb = new ResturantDb(this);
+    RestaurantDb restaurantDb = new RestaurantDb(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,13 +91,13 @@ public class OrderActivity extends AppCompatActivity implements NavigationView.O
         // to get the email from load restaurant to order page
         String loadToOwner = getIntent().getStringExtra("Email1");
         if (customerOrders != null) {
-            orders = resturantDb.getAllCustomerOrders(customerOrders);
+            orders = restaurantDb.getAllCustomerOrders(customerOrders);
             emailView.setText(customerOrders);
         } else if (ownerOrders != null) {
-            orders = resturantDb.getAllRestaurantOrders(ownerOrders);
+            orders = restaurantDb.getAllRestaurantOrders(ownerOrders);
             emailView.setText(ownerOrders);
         } else {
-            orders = resturantDb.getAllCustomerOrders(loadToOwner);
+            orders = restaurantDb.getAllCustomerOrders(loadToOwner);
             emailView.setText(loadToOwner);
         }
 
@@ -117,7 +121,7 @@ public class OrderActivity extends AppCompatActivity implements NavigationView.O
                 finish();
                 break;
             case R.id.logout:
-                intent = new Intent(this, Login.class);
+                intent = new Intent(this, Login_Activity.class);
                 startActivity(intent);
                 finish();
                 break;

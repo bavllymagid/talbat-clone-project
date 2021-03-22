@@ -1,4 +1,4 @@
-package project.java4.talabat;
+package project.java4.talabat.UI;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -15,14 +15,18 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import project.java4.talabat.Adapters.RestaurantAdapter;
+import project.java4.talabat.DataBases.PersonDb;
+import project.java4.talabat.DataBases.RestaurantDb;
+import project.java4.talabat.R;
+import project.java4.talabat.Classes.Restaurant;
 
 import java.util.ArrayList;
 
 
-public class LoadRestaurants extends AppCompatActivity implements RestaurantAdapter.OnResListener, SearchView.OnQueryTextListener, NavigationView.OnNavigationItemSelectedListener {
+public class CustomerPage_Activity extends AppCompatActivity implements RestaurantAdapter.OnResListener, SearchView.OnQueryTextListener, NavigationView.OnNavigationItemSelectedListener {
 
     /**
      * declaration of recycler view
@@ -30,7 +34,7 @@ public class LoadRestaurants extends AppCompatActivity implements RestaurantAdap
     private RecyclerView recyclerView;
     private RestaurantAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<Resturant> restaurantList = new ArrayList<>();
+    private ArrayList<Restaurant> restaurantList = new ArrayList<>();
     /**
      * declaration of drawer side bar
      */
@@ -43,7 +47,7 @@ public class LoadRestaurants extends AppCompatActivity implements RestaurantAdap
     /**
      * restaurants and users databases
      */
-    private ResturantDb dbase = new ResturantDb(this);
+    private RestaurantDb dbase = new RestaurantDb(this);
     PersonDb personDb = new PersonDb(this);
 
     @Override
@@ -71,7 +75,7 @@ public class LoadRestaurants extends AppCompatActivity implements RestaurantAdap
     protected void onResume() {
         super.onResume();
 
-        restaurantList = dbase.getAllResturants();
+        restaurantList = dbase.getAllRestaurants();
 
         adapter = new RestaurantAdapter(restaurantList, this);
 
@@ -119,13 +123,13 @@ public class LoadRestaurants extends AppCompatActivity implements RestaurantAdap
         Intent intent;
         switch (item.getItemId()) {
             case R.id.your_orders_nav:
-                intent = new Intent(this, OrderActivity.class);
+                intent = new Intent(this, Order_Activity.class);
                 intent.putExtra("customer", "0");
                 intent.putExtra("Email1", getIntent().getStringExtra("Email"));
                 startActivity(intent);
                 break;
             case R.id.logout:
-                intent = new Intent(this, Login.class);
+                intent = new Intent(this, Login_Activity.class);
                 startActivity(intent);
                 finish();
                 break;
@@ -139,7 +143,7 @@ public class LoadRestaurants extends AppCompatActivity implements RestaurantAdap
     @Override
     public void OnResClick(int position) {
         personDb.searchRestaurant(restaurantList.get(position).getName());
-        Intent intent = new Intent(this, OwnerPage.class);
+        Intent intent = new Intent(this, OwnerPage_Activity.class);
         intent.putExtra("res_name", restaurantList.get(position).getName());
         intent.putExtra("customer", "0");
         intent.putExtra("Email1", getIntent().getStringExtra("Email"));

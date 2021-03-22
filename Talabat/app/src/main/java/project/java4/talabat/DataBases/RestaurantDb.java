@@ -1,25 +1,26 @@
-package project.java4.talabat;
+package project.java4.talabat.DataBases;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
+import project.java4.talabat.Classes.Meal;
+import project.java4.talabat.Classes.Order;
+import project.java4.talabat.Classes.Restaurant;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 
-public class ResturantDb extends SQLiteOpenHelper {
+public class RestaurantDb extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "Meal_db";
     private static final int DB_VERSION = 2;
 
-    //  //Resturants table columns
-    private static final String KEY_ResturantName = "ResturantName";
+    //  //Restaurants table columns
+    private static final String KEY_RestaurantName = "ResturantName";
     private static final String ResKEY_IMG = "image";
-    private static final String TABLE_Resturant_Data = "Resturant";
+    private static final String TABLE_Restaurant_Data = "Resturant";
 
 
     //Meals table columns
@@ -34,36 +35,36 @@ public class ResturantDb extends SQLiteOpenHelper {
     //orders column
     private static final String ordersTable = "orders";
     private static final String orderMealName = "mealName";
-    private static final String Resturant_name = "Res_name";
+    private static final String Restaurant_name = "Res_name";
     private static final String orderEmail = "orderEmail";
     private static final String orderImg = "orderImg";
     private static final String orderMealPrice = "orderPrice";
     private static final String orderMealQuantity = "orderQuantity";
     private static final String orderDate = "orderDate";
 
-    public ResturantDb(Context context) {
+    public RestaurantDb(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        //intializing resturants
-        String Resturant_table = "create table " + TABLE_Resturant_Data + "("
-                + KEY_ResturantName + " varchar(255) Primary key,"
+        //initializing restaurants
+        String Restaurant_table = "create table " + TABLE_Restaurant_Data + "("
+                + KEY_RestaurantName + " varchar(255) Primary key,"
                 + ResKEY_IMG + " blob)";
 
-        //intializing of meals
+        //initializing of meals
         String Meals_table = "create table " + TABLE_Meal_Data + "(" + KEY_ID + " integer primary key autoincrement,"
                 + KEY_MealName + " varchar(255) DEFAULT'',"
                 + KEY_MealDescription + " varchar(255) DEFAULT'',"
                 + KEY_MealPrice + " integer ,"
                 + KEY_IMG + " blob," + Res_name + " varchar(250))";
 
-        //intializing the orders
+        //initializing the orders
         String orders_table = "create table " + ordersTable + "(" + orderEmail + " varchar(255) ,"
-                + Resturant_name + " varchar(255)," + orderMealName + " varchar(255)," + orderMealPrice + " varchar(255)," + orderMealQuantity + " varchar(255)," + orderDate + " varchar(255)," + orderImg + " blob)";
+                + Restaurant_name + " varchar(255)," + orderMealName + " varchar(255)," + orderMealPrice + " varchar(255)," + orderMealQuantity + " varchar(255)," + orderDate + " varchar(255)," + orderImg + " blob)";
 
-        db.execSQL(Resturant_table);
+        db.execSQL(Restaurant_table);
         db.execSQL(Meals_table);
         db.execSQL(orders_table);
 
@@ -72,7 +73,7 @@ public class ResturantDb extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        String delete_query = "DROP table if exists " + TABLE_Resturant_Data;
+        String delete_query = "DROP table if exists " + TABLE_Restaurant_Data;
         String delete_query2 = "DROP table if exists " + TABLE_Meal_Data;
         String delete_query3 = "DROP table if exists " + ordersTable;
         db.execSQL(delete_query);
@@ -82,32 +83,32 @@ public class ResturantDb extends SQLiteOpenHelper {
     }
 
 
-    // get the resturants in the recycler view
-    public ArrayList<Resturant> getAllResturants() {
-        ArrayList<Resturant> Resturants = new ArrayList<>();
+    // get the restaurants in the recycler view
+    public ArrayList<Restaurant> getAllRestaurants() {
+        ArrayList<Restaurant> Restaurants = new ArrayList<>();
 
-        String select_query = "select * from " + TABLE_Resturant_Data;
+        String select_query = "select * from " + TABLE_Restaurant_Data;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(select_query, null);
 
         if (cursor.moveToFirst()) {
             do {
-                String resturantName = cursor.getString(cursor.getColumnIndex(KEY_ResturantName));
+                String restaurantName = cursor.getString(cursor.getColumnIndex(KEY_RestaurantName));
                 byte[] image = cursor.getBlob(cursor.getColumnIndex(ResKEY_IMG));
 
-                Resturant resturant = new Resturant(image, resturantName);
+                Restaurant restaurant = new Restaurant(image, restaurantName);
 
-                Resturants.add(resturant);
+                Restaurants.add(restaurant);
 
             } while (cursor.moveToNext());
 
         }
 
-        return Resturants;
+        return Restaurants;
     }
 
-    // to add meal to the resturant
+    // to add meal to the restaurant
     public void addMeal(Meal meal) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -122,19 +123,19 @@ public class ResturantDb extends SQLiteOpenHelper {
         db.insert(TABLE_Meal_Data, null, values);
     }
 
-    // to add a new resturant
-    public void addResturant(Resturant resturant) {
+    // to add a new restaurant
+    public void addRestaurant(Restaurant restaurant) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_ResturantName, resturant.getName());
-        values.put(ResKEY_IMG, resturant.getImageResource());
+        values.put(KEY_RestaurantName, restaurant.getName());
+        values.put(ResKEY_IMG, restaurant.getImageResource());
 
-        db.insert(TABLE_Resturant_Data, null, values);
+        db.insert(TABLE_Restaurant_Data, null, values);
     }
 
-    public ArrayList<Meal> getAllMeals(String resturantName) {
+    public ArrayList<Meal> getAllMeals(String restaurantName) {
         ArrayList<Meal> meals = new ArrayList<>();
 
         String select_query = "select * from " + TABLE_Meal_Data;
@@ -144,7 +145,7 @@ public class ResturantDb extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                if (resturantName.equals(cursor.getString(cursor.getColumnIndex(Res_name)))) {
+                if (restaurantName.equals(cursor.getString(cursor.getColumnIndex(Res_name)))) {
                     int id = cursor.getInt(cursor.getColumnIndex(KEY_ID));
                     String MealName = cursor.getString(cursor.getColumnIndex(KEY_MealName));
                     String MealDescription = cursor.getString(cursor.getColumnIndex(KEY_MealDescription));
@@ -216,7 +217,7 @@ public class ResturantDb extends SQLiteOpenHelper {
     Orders section
      */
 
-    // to add meal to the resturant
+    // to add meal to the restaurant
     public void addOrder(Order order) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -225,7 +226,7 @@ public class ResturantDb extends SQLiteOpenHelper {
         values.put(orderMealName, order.getMealName());
         values.put(orderEmail, order.getEmail());
         values.put(orderImg, order.getImage());
-        values.put(Resturant_name, order.getRestaurantName());
+        values.put(Restaurant_name, order.getRestaurantName());
         values.put(orderMealPrice, order.getMealPrice());
         values.put(orderMealQuantity, order.getQuantity());
         values.put(orderDate, order.getDate());
@@ -248,11 +249,11 @@ public class ResturantDb extends SQLiteOpenHelper {
                     String orderName = cursor.getString(cursor.getColumnIndex(orderMealName));
                     int orderPrice = cursor.getInt(cursor.getColumnIndex(orderMealPrice));
                     int orderQuantity = cursor.getInt(cursor.getColumnIndex(orderMealQuantity));
-                    String orderdate = cursor.getString(cursor.getColumnIndex(orderDate));
+                    String orderDate = cursor.getString(cursor.getColumnIndex(RestaurantDb.orderDate));
                     byte[] image = cursor.getBlob(cursor.getColumnIndex(orderImg));
-                    String resturantName = cursor.getString(cursor.getColumnIndex(Resturant_name));
+                    String restaurantName = cursor.getString(cursor.getColumnIndex(Restaurant_name));
 
-                    Order order = new Order(email, orderName, orderPrice, orderQuantity, orderdate, image, resturantName);
+                    Order order = new Order(email, orderName, orderPrice, orderQuantity, orderDate, image, restaurantName);
 
                     orders.add(order);
                 }
@@ -262,7 +263,7 @@ public class ResturantDb extends SQLiteOpenHelper {
         return orders;
     }
 
-    //to get all the orders of the resturant
+    //to get all the orders of the restaurant
     public ArrayList<Order> getAllRestaurantOrders(String restaurantName) {
         ArrayList<Order> orders = new ArrayList<>();
 
@@ -273,16 +274,16 @@ public class ResturantDb extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                if (restaurantName.equals(cursor.getString(cursor.getColumnIndex(Resturant_name)))) {
+                if (restaurantName.equals(cursor.getString(cursor.getColumnIndex(Restaurant_name)))) {
                     String email = cursor.getString(cursor.getColumnIndex(orderEmail));
                     String orderName = cursor.getString(cursor.getColumnIndex(orderMealName));
                     int orderPrice = cursor.getInt(cursor.getColumnIndex(orderMealPrice));
                     int orderQuantity = cursor.getInt(cursor.getColumnIndex(orderMealQuantity));
-                    String orderdate = cursor.getString(cursor.getColumnIndex(orderDate));
+                    String orderDate = cursor.getString(cursor.getColumnIndex(RestaurantDb.orderDate));
                     byte[] image = cursor.getBlob(cursor.getColumnIndex(orderImg));
-                    String resturantName = cursor.getString(cursor.getColumnIndex(Resturant_name));
+                    String name = cursor.getString(cursor.getColumnIndex(Restaurant_name));
 
-                    Order order = new Order(email, orderName, orderPrice, orderQuantity, orderdate, image, resturantName);
+                    Order order = new Order(email, orderName, orderPrice, orderQuantity, orderDate, image, name);
 
                     orders.add(order);
                 }

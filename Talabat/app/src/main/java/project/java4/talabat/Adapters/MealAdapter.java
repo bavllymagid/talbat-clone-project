@@ -1,4 +1,4 @@
-package project.java4.talabat;
+package project.java4.talabat.Adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import project.java4.talabat.Classes.Meal;
+import project.java4.talabat.R;
 
 import java.util.ArrayList;
 import java.util.List;

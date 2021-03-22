@@ -1,4 +1,4 @@
-package project.java4.talabat;
+package project.java4.talabat.Classes;
 
 public class Order {
     private String mealName;

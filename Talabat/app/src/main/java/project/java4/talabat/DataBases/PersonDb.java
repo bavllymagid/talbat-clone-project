@@ -1,10 +1,12 @@
-package project.java4.talabat;
+package project.java4.talabat.DataBases;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import project.java4.talabat.Classes.Customer;
+import project.java4.talabat.Classes.RestaurantOwner;
 
 
 import java.security.MessageDigest;

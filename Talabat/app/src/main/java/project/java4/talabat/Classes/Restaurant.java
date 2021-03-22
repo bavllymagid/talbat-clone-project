@@ -1,11 +1,11 @@
-package project.java4.talabat;
+package project.java4.talabat.Classes;
 
-public class Resturant {
+public class Restaurant {
     private byte[] imageResource;
     private String name;
 
 
-    Resturant(byte[] imageResource, String name) {
+    public Restaurant(byte[] imageResource, String name) {
         this.name = name;
         this.imageResource = imageResource;
 

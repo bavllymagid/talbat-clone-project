@@ -11,19 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OrderActivity" />
-        <activity android:name=".Register" />
-        <activity android:name=".RegisterRestaurantOwner" />
-        <activity android:name=".OwnerPage" />
-        <activity android:name=".AddMeal" />
-        <activity android:name=".UpdateMeal" />
+        <activity android:name=".UI.Order_Activity" />
+        <activity android:name=".UI.Register_Activity" />
+        <activity android:name=".UI.RegisterRestaurantOwner_Activity" />
+        <activity android:name=".UI.OwnerPage_Activity" />
+        <activity android:name=".UI.AddMeal_Activity" />
+        <activity android:name=".UI.UpdateMeal_Activity" />
         <activity
-            android:name=".Login"
+            android:name=".UI.Login_Activity"
             android:label="@string/title_login" />
-        <activity android:name=".Register_customer" />
-        <activity android:name=".LoadRestaurants" />
+        <activity android:name=".UI.CustomerRegister_Activity" />
+        <activity android:name=".UI.CustomerPage_Activity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".UI.HomePage_Activity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

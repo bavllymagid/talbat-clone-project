@@ -1,4 +1,4 @@
-package project.java4.talabat;
+package project.java4.talabat.UI;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,14 +19,17 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import project.java4.talabat.DataBases.RestaurantDb;
+import project.java4.talabat.Classes.Meal;
+import project.java4.talabat.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 
-public class UpdateMeal extends AppCompatActivity {
+public class UpdateMeal_Activity extends AppCompatActivity {
 
-    private ResturantDb db;
+    private RestaurantDb db;
 
     private EditText editMealName, editMealPrice,editMealDescription;
     private Button btnUpdate;
@@ -45,7 +48,7 @@ public class UpdateMeal extends AppCompatActivity {
 
         id = getIntent().getIntExtra("id", 0);
 
-        db = new ResturantDb(this);
+        db = new RestaurantDb(this);
 
         Meal meal = db.getMealById2(id);
 
@@ -89,7 +92,7 @@ public class UpdateMeal extends AppCompatActivity {
 
                 db.updateMeal(newMeal);
 
-                Toast.makeText(UpdateMeal.this, "Successfully updated", Toast.LENGTH_LONG).show();
+                Toast.makeText(UpdateMeal_Activity.this, "Successfully updated", Toast.LENGTH_LONG).show();
                 finish();
 
             }

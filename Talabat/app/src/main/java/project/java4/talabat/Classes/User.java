@@ -1,8 +1,8 @@
-package project.java4.talabat;
+package project.java4.talabat.Classes;
 
 public class User {
-    private String name;
-    private String email;
+    private final  String name;
+    private final String email;
     private String password;
 
     public User(String name, String email, String password ){

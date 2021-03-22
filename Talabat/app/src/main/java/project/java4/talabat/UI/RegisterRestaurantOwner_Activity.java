@@ -1,7 +1,6 @@
-package project.java4.talabat;
+package project.java4.talabat.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,14 +14,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import project.java4.talabat.DataBases.PersonDb;
+import project.java4.talabat.DataBases.RestaurantDb;
+import project.java4.talabat.R;
+import project.java4.talabat.Classes.RestaurantOwner;
+import project.java4.talabat.Classes.Restaurant;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
-public class RegisterRestaurantOwner extends AppCompatActivity {
+public class RegisterRestaurantOwner_Activity extends AppCompatActivity {
 
     private byte[] image = null;
-    private ResturantDb db = new ResturantDb(this);
+    private RestaurantDb db = new RestaurantDb(this);
     private PersonDb personDb = new PersonDb(this);
     private ImageButton pickImage;
     private EditText name, password, email, restaurant_name;
@@ -52,10 +56,10 @@ public class RegisterRestaurantOwner extends AppCompatActivity {
                         Bitmap bitmap = drawable.getBitmap();
                         image = getBytes(bitmap);
 
-                        Resturant resturant = new Resturant(image, restaurantOwner.getRestaurantName());
-                        db.addResturant(resturant);
+                        Restaurant resturant = new Restaurant(image, restaurantOwner.getRestaurantName());
+                        db.addRestaurant(resturant);
                         personDb.createNewEmail(restaurantOwner , "1");
-                        Intent intent = new Intent(RegisterRestaurantOwner.this, Login.class);
+                        Intent intent = new Intent(RegisterRestaurantOwner_Activity.this, Login_Activity.class);
                         Toast.makeText(getApplicationContext(), "Registered successfully", Toast.LENGTH_SHORT).show();
                         startActivity(intent);
                         finish();

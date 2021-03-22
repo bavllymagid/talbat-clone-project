@@ -1,4 +1,4 @@
-package project.java4.talabat;
+package project.java4.talabat.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,8 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import project.java4.talabat.Classes.Customer;
+import project.java4.talabat.DataBases.PersonDb;
+import project.java4.talabat.R;
 
-public class Register_customer extends AppCompatActivity {
+public class CustomerRegister_Activity extends AppCompatActivity {
 
     private EditText name , email , password , phone ,address;
     private Button registerButton ;
@@ -40,7 +43,7 @@ public class Register_customer extends AppCompatActivity {
                 if(isUserNameValid(customer.getEmail()) && isPasswordValid(customer.getPassword())){
                     if(!personDb.searchEmail(customer.getEmail())){
                         if(personDb.createNewEmail(customer,"0")) {
-                            Intent intent = new Intent(Register_customer.this , Login.class);
+                            Intent intent = new Intent(CustomerRegister_Activity.this , Login_Activity.class);
                             startActivity(intent);
                             finish();
                             Toast.makeText(getApplicationContext(), "registration succeeded ", Toast.LENGTH_SHORT).show();

@@ -1,4 +1,4 @@
-package project.java4.talabat;
+package project.java4.talabat.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,10 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import androidx.core.view.GravityCompat;
+import project.java4.talabat.DataBases.PersonDb;
+import project.java4.talabat.R;
 
 
-public class Login extends AppCompatActivity {
+public class Login_Activity extends AppCompatActivity {
     /**
      * layout elements
      */
@@ -46,7 +47,7 @@ public class Login extends AppCompatActivity {
                     if (!ePersonDb.searchState(usernameEditText.getText().toString())) {
                         sendRestaurant(v);
                     } else {
-                        Intent intent = new Intent(Login.this, LoadRestaurants.class);
+                        Intent intent = new Intent(Login_Activity.this, CustomerPage_Activity.class);
                         intent.putExtra("Email", usernameEditText.getText().toString());
                         startActivity(intent);
                         finish();
@@ -64,7 +65,7 @@ public class Login extends AppCompatActivity {
      * opens register layout
      */
     public void registering(View view) {
-        Intent intent = new Intent(this, Register.class);
+        Intent intent = new Intent(this, Register_Activity.class);
         intent.putExtra("Email", usernameEditText.getText().toString());
         startActivity(intent);
         finish();
@@ -74,7 +75,7 @@ public class Login extends AppCompatActivity {
      * opens owner page (restaurant page) layout
      */
     public void sendRestaurant(View view) {
-        Intent intent = new Intent(this, OwnerPage.class);
+        Intent intent = new Intent(this, OwnerPage_Activity.class);
         intent.putExtra("restaurantName", ePersonDb.getRestaurantName(usernameEditText.getText().toString()));
         intent.putExtra("customer", "1");
         startActivity(intent);

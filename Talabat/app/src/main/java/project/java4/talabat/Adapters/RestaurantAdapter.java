@@ -1,4 +1,4 @@
-package project.java4.talabat;
+package project.java4.talabat.Adapters;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,13 +12,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import project.java4.talabat.R;
+import project.java4.talabat.Classes.Restaurant;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder> implements Filterable {
-    private ArrayList<Resturant> restaurantList;
-    private ArrayList<Resturant> allRestaurants;
+    private ArrayList<Restaurant> restaurantList;
+    private ArrayList<Restaurant> allRestaurants;
     private OnResListener onResListener ;
 
 
@@ -44,7 +46,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
     public interface OnResListener {
         void OnResClick(int position);
     }
-    public RestaurantAdapter(ArrayList<Resturant> restaurantList , OnResListener onResListener){
+    public RestaurantAdapter(ArrayList<Restaurant> restaurantList , OnResListener onResListener){
         this.restaurantList = restaurantList ;
         this.onResListener = onResListener ;
         allRestaurants = new ArrayList<>();
@@ -62,7 +64,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
 
     @Override
     public void onBindViewHolder(@NonNull RestaurantViewHolder holder, int position) {
-        Resturant currentRestaurant = restaurantList.get(position);
+        Restaurant currentRestaurant = restaurantList.get(position);
 
         Bitmap bitmap = BitmapFactory.decodeByteArray(currentRestaurant.getImageResource(), 0, currentRestaurant.getImageResource().length);
         holder.imageView.setImageBitmap(bitmap);
@@ -84,12 +86,12 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            List<Resturant>filteredRestaurants = new ArrayList<>();
+            List<Restaurant>filteredRestaurants = new ArrayList<>();
             if(constraint==null || constraint.length()==0){
                 filteredRestaurants.addAll(allRestaurants);
             }else {
                 String filterPattern =constraint.toString().toLowerCase().trim();
-                for(Resturant item : allRestaurants){
+                for(Restaurant item : allRestaurants){
                     if(item.getName().toLowerCase().contains(filterPattern)){
                         filteredRestaurants.add(item);
                     }

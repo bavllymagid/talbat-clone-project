@@ -1,4 +1,4 @@
-package project.java4.talabat;
+package project.java4.talabat.UI;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,12 +14,15 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import project.java4.talabat.DataBases.RestaurantDb;
+import project.java4.talabat.Classes.Meal;
+import project.java4.talabat.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 
-public class AddMeal extends AppCompatActivity {
+public class AddMeal_Activity extends AppCompatActivity {
 
     private EditText editMealName, editMealPrice, editMealDescription;
     private Button btnConfirm;
@@ -32,14 +35,14 @@ public class AddMeal extends AppCompatActivity {
     /**
      * restaurants database
      */
-    private ResturantDb db;
+    private RestaurantDb db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meal_data);
 
-        db = new ResturantDb(this);
+        db = new RestaurantDb(this);
 
 
         editMealName = (EditText) findViewById(R.id.editMealName);
@@ -74,7 +77,7 @@ public class AddMeal extends AppCompatActivity {
 
                 db.addMeal(meal);
 
-                Toast.makeText(AddMeal.this, "Data is Added", Toast.LENGTH_LONG).show();
+                Toast.makeText(AddMeal_Activity.this, "Data is Added", Toast.LENGTH_LONG).show();
                 finish();
             }
         });

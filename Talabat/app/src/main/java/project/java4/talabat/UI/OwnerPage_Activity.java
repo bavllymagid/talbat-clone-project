@@ -1,4 +1,4 @@
-package project.java4.talabat;
+package project.java4.talabat.UI;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -20,24 +20,27 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import project.java4.talabat.Adapters.MealAdapter;
+import project.java4.talabat.DataBases.RestaurantDb;
+import project.java4.talabat.Classes.Meal;
+import project.java4.talabat.Classes.Order;
+import project.java4.talabat.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Vector;
 
-public class OwnerPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
+public class OwnerPage_Activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
 
     private ListView contactList;
     private Button orderBtn;
     private FloatingActionButton fab;
     private ConstraintLayout forCustomer;
-    private ResturantDb db;
+    private RestaurantDb db;
     private TextView numberOfItems;
     private TextView itemsPrice;
     private MealAdapter mealAdapter;
@@ -66,7 +69,7 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_page);
         isCustomer = getIntent().getStringExtra("customer").equals("0");
-        db = new ResturantDb(this);
+        db = new RestaurantDb(this);
         forCustomer = findViewById(R.id.for_customer);
         fab = findViewById(R.id.addMeal);
         contactList = findViewById(R.id.contactList);
@@ -87,7 +90,7 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent = new Intent(OwnerPage.this, AddMeal.class);
+                    Intent intent = new Intent(OwnerPage_Activity.this, AddMeal_Activity.class);
                     String ownerRestaurant = getIntent().getStringExtra("restaurantName");
                     intent.putExtra("resName", ownerRestaurant);
                     startActivity(intent);
@@ -101,7 +104,7 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
 
                     Meal selected_meal = (Meal) parent.getItemAtPosition(position);
 
-                    Intent intent = new Intent(OwnerPage.this, UpdateMeal.class);
+                    Intent intent = new Intent(OwnerPage_Activity.this, UpdateMeal_Activity.class);
 
                     intent.putExtra("id", selected_meal.getId());
 
@@ -153,7 +156,6 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
                     numberOfItems_++;
                     itemsPrice.setText(itemsPrice_ + "");
                     numberOfItems.setText(numberOfItems_ + "");
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
                     String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
                     order = new Order(getIntent().getStringExtra("Email1"), selected_meal.getMealName()
                             , selected_meal.getMealPrice(), 1, currentDate, selected_meal.getImage(), getIntent().getStringExtra("res_name"));
@@ -221,8 +223,8 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
 
         nav_view.setCheckedItem(R.id.home_nav);
         drawer.close();
-        if(OrderActivity.key==1 && isCustomer){
-            OrderActivity.key= 0;
+        if(Order_Activity.key==1 && isCustomer){
+            Order_Activity.key= 0;
             finish();
         }
 
@@ -239,7 +241,7 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
         Intent intent;
         switch (item.getItemId()) {
             case R.id.your_orders_nav:
-                intent = new Intent(this, OrderActivity.class);
+                intent = new Intent(this, Order_Activity.class);
                 if (isCustomer) {
                     intent.putExtra("customer", "0");
                     intent.putExtra("Email2", getIntent().getStringExtra("Email1"));
@@ -251,7 +253,7 @@ public class OwnerPage extends AppCompatActivity implements NavigationView.OnNav
                 startActivity(intent);
                 break;
             case R.id.logout:
-                intent = new Intent(this, Login.class);
+                intent = new Intent(this, Login_Activity.class);
                 startActivity(intent);
                 finish();
                 break;
