@@ -292,6 +292,4 @@ public class RestaurantDb extends SQLiteOpenHelper {
         }
         return orders;
     }
-
-
 }

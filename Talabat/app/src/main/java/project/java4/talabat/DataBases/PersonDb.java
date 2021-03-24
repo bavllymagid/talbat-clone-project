@@ -69,7 +69,6 @@ public class PersonDb extends SQLiteOpenHelper {
         row.put("password", customer.getPassword());
         row.put("phone", customer.getPhoneNumber());
         row.put("address", customer.getAddress());
-        row.put("res_name", "null");
         row.put("key_d", key);
 
         database = getWritableDatabase();
